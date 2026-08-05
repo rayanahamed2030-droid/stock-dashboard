@@ -203,7 +203,7 @@ def fundamental_score(fund: dict) -> tuple[float, list[str]]:
     return round(normalized, 1), reasons
 
 
-def trade_levels(snap: dict, atr_multiplier: float = 1.75, reward_risk: float = 2.0) -> dict:
+def trade_levels(snap: dict, atr_multiplier: float = 1.75, reward_risk: float = 1.5) -> dict:
     """
     Computes rule-based entry, stop-loss, and target levels using ATR
     (Average True Range) for volatility-adjusted risk sizing. Not a
