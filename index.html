@@ -161,8 +161,9 @@ function scoreColor(score){
   return 'var(--down)';
 }
 
-function renderCard(pick, rank){
-  const reasonsTech = (pick.reasons?.technical || []).map(r => `<span class="tag">${r}</span>`).join('');
+function renderCard(pick, rank, isIntraday){
+  const techReasons = isIntraday ? (pick.reasons?.intraday_technical || []) : (pick.reasons?.technical || []);
+  const reasonsTech = techReasons.map(r => `<span class="tag">${r}</span>`).join('');
   const reasonsFund = (pick.reasons?.fundamental || []).map(r => `<span class="tag fund">${r}</span>`).join('');
 
   return `
@@ -211,13 +212,13 @@ fetch('data/daily_picks.json')
     if(!data.swing_picks?.length){
       swingEl.innerHTML = '<div class="empty">No picks yet — run the scan.</div>';
     } else {
-      swingEl.innerHTML = data.swing_picks.map((p,i) => renderCard(p, i+1)).join('');
+      swingEl.innerHTML = data.swing_picks.map((p,i) => renderCard(p, i+1, false)).join('');
     }
 
     if(!data.intraday_picks?.length){
       intradayEl.innerHTML = '<div class="empty">No picks yet — run the scan.</div>';
     } else {
-      intradayEl.innerHTML = data.intraday_picks.map((p,i) => renderCard(p, i+1)).join('');
+      intradayEl.innerHTML = data.intraday_picks.map((p,i) => renderCard(p, i+1, true)).join('');
     }
   })
   .catch(err => {
