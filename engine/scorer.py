@@ -19,7 +19,9 @@ def _safe(val, default=0):
 
 
 def technical_score(snap: dict) -> tuple[float, list[str]]:
-    """Returns (score 0-100, list of reasoning tags) from a technical snapshot."""
+    """Returns (score 0-100, list of reasoning tags) from a technical snapshot.
+    This is the SWING-oriented technical score: rewards established trend +
+    healthy (not necessarily extreme) momentum, since swing trades run for days-to-weeks."""
     if not snap:
         return 0.0, ["no price data"]
 
@@ -35,7 +37,6 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
     vol_spike = _safe(snap.get("vol_spike"), 1)
     high20 = _safe(snap.get("high20"))
 
-    # Trend (35 pts)
     if close > ema20 > ema50:
         score += 25
         reasons.append("price above EMA20 & EMA50 (uptrend)")
@@ -46,7 +47,6 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 10
         reasons.append("above 200 EMA (long-term uptrend)")
 
-    # Momentum (30 pts)
     if 50 < rsi < 70:
         score += 20
         reasons.append(f"RSI {rsi:.0f} - healthy bullish momentum")
@@ -64,7 +64,6 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 5
         reasons.append("MACD histogram positive")
 
-    # Volume confirmation (20 pts)
     if vol_spike >= 1.5:
         score += 20
         reasons.append(f"volume {vol_spike:.1f}x 20-day average (strong interest)")
@@ -72,10 +71,67 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 10
         reasons.append(f"volume {vol_spike:.1f}x average (mild pickup)")
 
-    # Breakout proximity (15 pts)
     if high20 and close >= high20 * 0.98:
         score += 15
         reasons.append("near/at 20-day high (breakout zone)")
+
+    return min(score, 100.0), reasons
+
+
+def intraday_technical_score(snap: dict) -> tuple[float, list[str]]:
+    """Returns (score 0-100, list of reasoning tags) tuned for INTRADAY setups.
+    Rewards volume surges, volatility relative to price, and momentum acceleration -
+    does NOT require an established multi-week trend like the swing score does."""
+    if not snap:
+        return 0.0, ["no price data"]
+
+    score = 0.0
+    reasons = []
+    close = _safe(snap.get("close"))
+    atr = _safe(snap.get("atr14"))
+    rsi = _safe(snap.get("rsi14"), 50)
+    macd_hist = _safe(snap.get("macd_hist"))
+    macd_hist_prev = _safe(snap.get("macd_hist_prev"))
+    vol_spike = _safe(snap.get("vol_spike"), 1)
+    high20 = _safe(snap.get("high20"))
+    low20 = _safe(snap.get("low20"))
+
+    if vol_spike >= 3.0:
+        score += 40
+        reasons.append(f"volume {vol_spike:.1f}x average - very high intraday interest")
+    elif vol_spike >= 2.0:
+        score += 28
+        reasons.append(f"volume {vol_spike:.1f}x average - strong intraday interest")
+    elif vol_spike >= 1.3:
+        score += 14
+        reasons.append(f"volume {vol_spike:.1f}x average - moderate pickup")
+
+    if close > 0 and atr > 0:
+        atr_pct = (atr / close) * 100
+        if atr_pct >= 3.0:
+            score += 25
+            reasons.append(f"ATR {atr_pct:.1f}% of price - high volatility, good intraday range")
+        elif atr_pct >= 1.8:
+            score += 15
+            reasons.append(f"ATR {atr_pct:.1f}% of price - moderate volatility")
+
+    if rsi >= 70 or rsi <= 30:
+        score += 15
+        reasons.append(f"RSI {rsi:.0f} - momentum extreme, high intraday energy")
+    elif rsi >= 60:
+        score += 8
+        reasons.append(f"RSI {rsi:.0f} - momentum building")
+
+    if macd_hist > macd_hist_prev and macd_hist_prev is not None:
+        score += 10
+        reasons.append("MACD histogram accelerating")
+
+    if high20 and close >= high20 * 0.98:
+        score += 10
+        reasons.append("testing 20-day high")
+    elif low20 and close <= low20 * 1.02:
+        score += 10
+        reasons.append("testing 20-day low")
 
     return min(score, 100.0), reasons
 
@@ -143,21 +199,15 @@ def fundamental_score(fund: dict) -> tuple[float, list[str]]:
     if max_possible == 0:
         return 0.0, ["no usable fundamental fields"]
 
-    # Normalize to 0-100 based on how many fields were actually available
     normalized = (score / max_possible) * 100
     return round(normalized, 1), reasons
 
 
 def trade_levels(snap: dict, atr_multiplier: float = 1.75, reward_risk: float = 2.0) -> dict:
     """
-    Computes rule-based entry, stop-loss, and target levels from the technical
-    snapshot, using ATR (Average True Range) for volatility-adjusted risk sizing.
-    This is the same standard approach professional swing traders use manually -
-    not a prediction of where price will go, just a defined risk/reward structure.
-
-    entry:      current close (or breakout level if near 20-day high)
-    stop_loss:  entry - (ATR x multiplier)  -> where the trade idea is invalidated
-    target:     entry + (risk x reward_risk) -> where profit is booked
+    Computes rule-based entry, stop-loss, and target levels using ATR
+    (Average True Range) for volatility-adjusted risk sizing. Not a
+    prediction of where price will go - just a defined risk/reward structure.
     """
     close = snap.get("close")
     atr = snap.get("atr14")
@@ -167,8 +217,6 @@ def trade_levels(snap: dict, atr_multiplier: float = 1.75, reward_risk: float = 
         return {"entry": None, "stop_loss": None, "target": None, "risk_per_share": None,
                 "reward_risk_ratio": None, "note": "insufficient data for trade levels"}
 
-    # If price is already near a breakout zone, entry is the breakout level;
-    # otherwise use current close as the reference entry.
     entry = high20 if (high20 and close >= high20 * 0.98) else close
 
     risk_per_share = round(atr * atr_multiplier, 2)
@@ -186,10 +234,15 @@ def trade_levels(snap: dict, atr_multiplier: float = 1.75, reward_risk: float = 
 
 
 def combined_scores(tech_score: float, tech_reasons: list, fund_score: float,
-                     fund_reasons: list) -> dict:
+                     fund_reasons: list, intraday_tech_score: float = None,
+                     intraday_tech_reasons: list = None) -> dict:
     """Produces both swing and intraday composite scores with reasoning."""
+    if intraday_tech_score is None:
+        intraday_tech_score = tech_score
+        intraday_tech_reasons = tech_reasons
+
     swing = round(0.55 * tech_score + 0.45 * fund_score, 1)
-    intraday = round(0.90 * tech_score + 0.10 * fund_score, 1)
+    intraday = round(0.85 * intraday_tech_score + 0.15 * fund_score, 1)
 
     return {
         "swing_score": swing,
@@ -198,6 +251,7 @@ def combined_scores(tech_score: float, tech_reasons: list, fund_score: float,
         "fundamental_score": round(fund_score, 1),
         "reasons": {
             "technical": tech_reasons,
+            "intraday_technical": intraday_tech_reasons,
             "fundamental": fund_reasons,
         },
     }
