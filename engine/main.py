@@ -23,7 +23,7 @@ from pathlib import Path
 
 from fetch_data import get_symbol_universe, fetch_price_history, fetch_fundamentals
 from indicators import compute_indicators, latest_snapshot
-from scorer import technical_score, fundamental_score, combined_scores, trade_levels
+from scorer import technical_score, intraday_technical_score, fundamental_score, combined_scores, trade_levels
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
@@ -42,18 +42,18 @@ def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
         if not snap or not snap.get("close"):
             continue
 
-        # basic liquidity/penny-stock filter - adjust to taste
         if snap["close"] < min_price:
             continue
         if snap.get("vol_avg20") and snap["vol_avg20"] < min_avg_volume:
             continue
 
         tscore, treasons = technical_score(snap)
+        itscore, itreasons = intraday_technical_score(snap)
 
         fund = fetch_fundamentals(symbol)
         fscore, freasons = fundamental_score(fund)
 
-        combo = combined_scores(tscore, treasons, fscore, freasons)
+        combo = combined_scores(tscore, treasons, fscore, freasons, itscore, itreasons)
         combo["symbol"] = symbol
         combo["close"] = round(snap["close"], 2)
         combo["atr14"] = round(snap["atr14"], 2) if snap.get("atr14") else None
