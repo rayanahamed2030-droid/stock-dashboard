@@ -1,0 +1,31 @@
+name: Daily Stock Scan
+
+on:
+  schedule:
+    # 11:15 UTC = 4:45 PM IST, after NSE market close (3:30 PM IST)
+    - cron: "15 11 * * 1-5"
+  workflow_dispatch: {}   # allows manual trigger from the Actions tab
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r engine/requirements.txt
+
+      - name: Run daily scan
+        run: python engine/main.py --universe nifty500 --top 10
+
+      - name: Commit updated picks
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/daily_picks.json
+          git diff --staged --quiet || git commit -m "Daily picks update: $(date -u +%Y-%m-%d)"
+          git push

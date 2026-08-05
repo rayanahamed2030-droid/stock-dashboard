@@ -1,0 +1,97 @@
+"""
+main.py
+Daily entry point: fetches data for the chosen universe, scores every stock,
+and writes out the top N swing picks and top N intraday picks as JSON,
+consumed by the static dashboard.
+
+Usage:
+    python main.py --universe nifty500 --top 10
+    python main.py --universe full --top 10       # slower, full NSE (~2000 stocks)
+
+IMPORTANT (read before trusting the output):
+This produces a RANKED, RULE-BASED SCORE - not a prediction of profit and
+not remotely close to "99% accurate." Treat picks as a shortlist to research
+further, not as trade signals to act on blindly. Always use your own risk
+management (position sizing, stop-loss) regardless of the score shown.
+"""
+
+import argparse
+import json
+import datetime
+import logging
+from pathlib import Path
+
+from fetch_data import get_symbol_universe, fetch_price_history, fetch_fundamentals
+from indicators import compute_indicators, latest_snapshot
+from scorer import technical_score, fundamental_score, combined_scores, trade_levels
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+log = logging.getLogger(__name__)
+
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data"
+
+
+def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
+    symbols = get_symbol_universe(universe)
+    price_data = fetch_price_history(symbols)
+
+    results = []
+    for symbol, df in price_data.items():
+        enriched = compute_indicators(df)
+        snap = latest_snapshot(enriched)
+        if not snap or not snap.get("close"):
+            continue
+
+        # basic liquidity/penny-stock filter - adjust to taste
+        if snap["close"] < min_price:
+            continue
+        if snap.get("vol_avg20") and snap["vol_avg20"] < min_avg_volume:
+            continue
+
+        tscore, treasons = technical_score(snap)
+
+        fund = fetch_fundamentals(symbol)
+        fscore, freasons = fundamental_score(fund)
+
+        combo = combined_scores(tscore, treasons, fscore, freasons)
+        combo["symbol"] = symbol
+        combo["close"] = round(snap["close"], 2)
+        combo["atr14"] = round(snap["atr14"], 2) if snap.get("atr14") else None
+        combo["trade_levels"] = trade_levels(snap)
+        results.append(combo)
+
+    swing_picks = sorted(results, key=lambda x: x["swing_score"], reverse=True)[:top_n]
+    intraday_picks = sorted(results, key=lambda x: x["intraday_score"], reverse=True)[:top_n]
+
+    output = {
+        "generated_at": datetime.datetime.now().isoformat(),
+        "universe": universe,
+        "universe_size_scanned": len(results),
+        "disclaimer": (
+            "Scores are a rule-based ranking of technical/fundamental setup strength, "
+            "not a prediction or guarantee of profit. Always apply your own risk management."
+        ),
+        "swing_picks": swing_picks,
+        "intraday_picks": intraday_picks,
+    }
+
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    out_path = OUTPUT_DIR / "daily_picks.json"
+    with open(out_path, "w") as f:
+        json.dump(output, f, indent=2)
+
+    log.info(f"Scanned {len(results)} stocks. Wrote picks to {out_path}")
+    return output
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--universe", choices=["nifty500", "full"], default="nifty500")
+    parser.add_argument("--top", type=int, default=10)
+    parser.add_argument("--min-price", type=float, default=20.0,
+                         help="Filter out stocks below this price (avoid illiquid penny stocks)")
+    parser.add_argument("--min-avg-volume", type=float, default=50000,
+                         help="Filter out stocks below this 20-day average volume")
+    args = parser.parse_args()
+
+    run(args.universe, args.top, args.min_price, args.min_avg_volume)

@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-08-04T07:05:29.846606",
+  "universe": "nifty500",
+  "universe_size_scanned": 487,
+  "disclaimer": "Scores are a rule-based ranking of technical/fundamental setup strength, not a prediction or guarantee of profit. Always apply your own risk management.",
+  "swing_picks": [
+    {
+      "symbol": "TATAPOWER",
+      "close": 412.35,
+      "atr14": 8.2,
+      "swing_score": 82.4,
+      "intraday_score": 71.0,
+      "reasons": {
+        "technical": [
+          "price above EMA20 & EMA50 (uptrend)",
+          "above 200 EMA (long-term uptrend)",
+          "RSI 64 - healthy bullish momentum",
+          "volume 1.6x 20-day average (strong interest)"
+        ],
+        "fundamental": [
+          "ROE 16.2% - strong returns on equity",
+          "D/E 45 - low debt",
+          "revenue growth 14.0% YoY - moderate"
+        ]
+      },
+      "trade_levels": {
+        "entry": 412.35,
+        "stop_loss": 397.99,
+        "target": 440.87,
+        "risk_per_share": 14.36,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 1.75x ATR below entry, target = 2.0:1 reward/risk"
+      }
+    },
+    {
+      "symbol": "CUMMINSIND",
+      "close": 3245.1,
+      "atr14": 52.1,
+      "swing_score": 78.9,
+      "intraday_score": 65.4,
+      "reasons": {
+        "technical": [
+          "price above EMA20 & EMA50 (uptrend)",
+          "MACD histogram rising above zero (bullish momentum building)",
+          "near/at 20-day high (breakout zone)"
+        ],
+        "fundamental": [
+          "P/E 28.4 - reasonable valuation",
+          "ROE 22.1% - strong returns on equity",
+          "earnings growth 18.0% YoY - strong"
+        ]
+      },
+      "trade_levels": {
+        "entry": 3245.1,
+        "stop_loss": 3154.93,
+        "target": 3425.44,
+        "risk_per_share": 90.18,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 1.75x ATR below entry, target = 2.0:1 reward/risk"
+      }
+    }
+  ],
+  "intraday_picks": [
+    {
+      "symbol": "IDEA",
+      "close": 13.42,
+      "atr14": 0.6,
+      "swing_score": 41.2,
+      "intraday_score": 74.8,
+      "reasons": {
+        "technical": [
+          "volume 3.2x 20-day average (strong interest)",
+          "RSI 71 - overbought, momentum strong but stretched",
+          "near/at 20-day high (breakout zone)"
+        ],
+        "fundamental": [
+          "no usable fundamental fields"
+        ]
+      },
+      "trade_levels": {
+        "entry": 13.42,
+        "stop_loss": 12.37,
+        "target": 15.52,
+        "risk_per_share": 1.05,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 1.75x ATR below entry, target = 2.0:1 reward/risk"
+      }
+    },
+    {
+      "symbol": "RVNL",
+      "close": 398.6,
+      "atr14": 11.4,
+      "swing_score": 68.0,
+      "intraday_score": 73.5,
+      "reasons": {
+        "technical": [
+          "MACD histogram rising above zero (bullish momentum building)",
+          "volume 2.1x 20-day average (strong interest)"
+        ],
+        "fundamental": [
+          "P/E 34.0 - moderately expensive"
+        ]
+      },
+      "trade_levels": {
+        "entry": 398.6,
+        "stop_loss": 378.65,
+        "target": 438.5,
+        "risk_per_share": 19.95,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 1.75x ATR below entry, target = 2.0:1 reward/risk"
+      }
+    }
+  ]
+}
