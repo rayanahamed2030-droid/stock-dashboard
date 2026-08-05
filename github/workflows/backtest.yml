@@ -1,0 +1,37 @@
+name: Backtest Scoring Rules
+
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: "Comma-separated NSE symbols (e.g. RELIANCE,TCS,INFY)"
+        required: true
+        default: "RELIANCE,TCS,INFY,HDFCBANK,ICICIBANK"
+      threshold:
+        description: "Minimum swing_score to trigger a simulated trade"
+        required: true
+        default: "65"
+      hold_days:
+        description: "Max days to hold before timing out"
+        required: true
+        default: "10"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r engine/requirements.txt
+
+      - name: Run backtest
+        run: |
+          python engine/backtest.py \
+            --symbols "${{ github.event.inputs.symbols }}" \
+            --threshold "${{ github.event.inputs.threshold }}" \
+            --hold-days "${{ github.event.inputs.hold_days }}"
