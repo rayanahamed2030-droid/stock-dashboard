@@ -73,6 +73,17 @@
     padding:16px;
     margin-bottom:12px;
   }
+  .card-recommended{
+    border:1px solid var(--up);
+    box-shadow:0 0 0 1px rgba(31,207,125,0.15);
+  }
+  .rec-badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px; letter-spacing:0.05em;
+    color:var(--up); background:rgba(31,207,125,0.12);
+    border:1px solid var(--up); border-radius:4px;
+    padding:2px 6px; vertical-align:middle;
+  }
   .card-top{
     display:flex; justify-content:space-between; align-items:flex-start;
     margin-bottom:10px;
@@ -165,13 +176,14 @@ function renderCard(pick, rank, isIntraday){
   const techReasons = isIntraday ? (pick.reasons?.intraday_technical || []) : (pick.reasons?.technical || []);
   const reasonsTech = techReasons.map(r => `<span class="tag">${r}</span>`).join('');
   const reasonsFund = (pick.reasons?.fundamental || []).map(r => `<span class="tag fund">${r}</span>`).join('');
+  const badge = (!isIntraday && pick.recommended) ? `<span class="rec-badge">★ RECOMMENDED</span>` : '';
 
   return `
-  <div class="card">
+  <div class="card${(!isIntraday && pick.recommended) ? ' card-recommended' : ''}">
     <div class="card-top">
       <div>
-        <div class="symbol">${pick.symbol}</div>
-        <div class="price">₹${pick.close?.toFixed ? pick.close.toFixed(2) : pick.close} · ATR ${pick.atr14 ?? '—'}</div>
+        <div class="symbol">${pick.symbol} ${badge}</div>
+        <div class="price">₹${pick.close?.toFixed ? pick.close.toFixed(2) : pick.close} · ATR ${pick.atr14 ?? '—'} ${pick.sector ? '· ' + pick.sector : ''}</div>
       </div>
       <div class="rank">#${rank}</div>
     </div>
