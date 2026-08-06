@@ -40,6 +40,8 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
     macd_hist = _safe(snap.get("macd_hist"))
     macd_hist_prev = _safe(snap.get("macd_hist_prev"))
 
+    # Established trend (30 pts) - the uptrend must already be in place;
+    # we're not predicting a new one, just buying a dip within it.
     if close > ema50:
         score += 15
         reasons.append("price above EMA50 (established uptrend)")
@@ -47,6 +49,8 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 15
         reasons.append("EMA50 above EMA200 (longer-term uptrend intact)")
 
+    # Pullback proximity to EMA20 (35 pts) - the core signal: price has
+    # cooled off toward its short-term support instead of chasing a high.
     if ema20 > 0:
         dist_pct = abs(close - ema20) / ema20 * 100
         if dist_pct <= 2.0 and close >= ema20 * 0.97:
@@ -56,6 +60,8 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
             score += 18
             reasons.append(f"price near EMA20 support ({dist_pct:.1f}% away)")
 
+    # Momentum reset (20 pts) - RSI cooled off from overbought, leaving
+    # room to run again, rather than already stretched.
     if 35 <= rsi <= 55:
         score += 20
         reasons.append(f"RSI {rsi:.0f} - momentum reset, room to run")
@@ -63,6 +69,7 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 10
         reasons.append(f"RSI {rsi:.0f} - mild pullback in momentum")
 
+    # Trend still intact despite pullback (15 pts)
     if macd_hist > 0:
         score += 15
         reasons.append("MACD histogram still positive through the pullback")
@@ -75,8 +82,11 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
 
 def intraday_technical_score(snap: dict) -> tuple[float, list[str]]:
     """Returns (score 0-100, list of reasoning tags) tuned for INTRADAY setups.
-    Rewards volume surges, volatility relative to price, and momentum acceleration -
-    does NOT require an established multi-week trend like the swing score does."""
+    Unlike the swing score, this deliberately rewards volume surges, volatility
+    relative to price, and momentum acceleration - the things that matter for a
+    single session - and does NOT require an established multi-week trend
+    (a stock can be a great intraday mover without being above its 200 EMA).
+    This is what keeps the intraday list genuinely different from the swing list."""
     if not snap:
         return 0.0, ["no price data"]
 
@@ -201,18 +211,19 @@ def fundamental_score(fund: dict) -> tuple[float, list[str]]:
 def trade_levels(snap: dict, atr_multiplier: float = 2.5, reward_risk: float = 1.5) -> dict:
     """
     Computes rule-based entry, stop-loss, and target levels using ATR
-    (Average True Range) for volatility-adjusted risk sizing. Not a
-    prediction of where price will go - just a defined risk/reward structure.
+    (Average True Range) for volatility-adjusted risk sizing. Entry is the
+    current close - since the swing scoring logic now selects pullback-to-
+    EMA20 setups, we're already buying at/near support, not chasing a high.
+    Not a prediction of where price will go - just a defined risk/reward structure.
     """
     close = snap.get("close")
     atr = snap.get("atr14")
-   entry = close
 
     if not close or not atr or atr <= 0:
         return {"entry": None, "stop_loss": None, "target": None, "risk_per_share": None,
                 "reward_risk_ratio": None, "note": "insufficient data for trade levels"}
 
-    
+    entry = close
 
     risk_per_share = round(atr * atr_multiplier, 2)
     stop_loss = round(entry - risk_per_share, 2)
@@ -231,7 +242,10 @@ def trade_levels(snap: dict, atr_multiplier: float = 2.5, reward_risk: float = 1
 def combined_scores(tech_score: float, tech_reasons: list, fund_score: float,
                      fund_reasons: list, intraday_tech_score: float = None,
                      intraday_tech_reasons: list = None) -> dict:
-    """Produces both swing and intraday composite scores with reasoning."""
+    """Produces both swing and intraday composite scores with reasoning.
+    If intraday_tech_score isn't provided, falls back to the swing technical
+    score (kept for backward compatibility with the backtest, which only
+    needs the swing logic)."""
     if intraday_tech_score is None:
         intraday_tech_score = tech_score
         intraday_tech_reasons = tech_reasons
