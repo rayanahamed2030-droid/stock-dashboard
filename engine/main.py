@@ -24,11 +24,47 @@ from pathlib import Path
 from fetch_data import get_symbol_universe, fetch_price_history, fetch_fundamentals
 from indicators import compute_indicators, latest_snapshot
 from scorer import technical_score, intraday_technical_score, fundamental_score, combined_scores, trade_levels
+from sectors import get_sector
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data"
+
+
+def select_recommended(swing_picks: list, max_picks: int = 2, min_score: float = 70.0) -> list:
+    """
+    Narrows the full swing pick list down to the 1-2 the dashboard flags as
+    'Recommended', using the same filter a careful trader should apply manually:
+      1. Score >= min_score (matches the 65+ threshold that backtested with a
+         real edge - 70 leaves some margin above that)
+      2. Reasoning is "complete" - has multiple technical reasons AND at least
+         some usable fundamental data, not just a technical-only score
+      3. Sector diversity - won't recommend two picks from the same sector
+      4. Highest score wins each sector slot
+
+    Returns a list of symbols (strings) to flag as recommended=True in the output.
+    """
+    candidates = [
+        p for p in swing_picks
+        if p["swing_score"] >= min_score
+        and len(p["reasons"].get("technical", [])) >= 3
+        and p["fundamental_score"] > 0
+    ]
+
+    recommended = []
+    used_sectors = set()
+    for pick in candidates:  # already sorted by score descending
+        sector = get_sector(pick["symbol"])
+        if sector != "Unknown" and sector in used_sectors:
+            continue  # skip - already have a pick from this sector
+        recommended.append(pick["symbol"])
+        if sector != "Unknown":
+            used_sectors.add(sector)
+        if len(recommended) >= max_picks:
+            break
+
+    return recommended
 
 
 def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
@@ -63,6 +99,11 @@ def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
     swing_picks = sorted(results, key=lambda x: x["swing_score"], reverse=True)[:top_n]
     intraday_picks = sorted(results, key=lambda x: x["intraday_score"], reverse=True)[:top_n]
 
+    recommended_symbols = select_recommended(swing_picks)
+    for pick in swing_picks:
+        pick["recommended"] = pick["symbol"] in recommended_symbols
+        pick["sector"] = get_sector(pick["symbol"])
+
     output = {
         "generated_at": datetime.datetime.now().isoformat(),
         "universe": universe,
@@ -70,6 +111,11 @@ def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
         "disclaimer": (
             "Scores are a rule-based ranking of technical/fundamental setup strength, "
             "not a prediction or guarantee of profit. Always apply your own risk management."
+        ),
+        "recommended_note": (
+            "'Recommended' picks passed an extra filter: score >= 70, complete "
+            "technical + fundamental reasoning, and sector diversity across the "
+            "recommended set. Still not a guarantee - do your own review."
         ),
         "swing_picks": swing_picks,
         "intraday_picks": intraday_picks,
