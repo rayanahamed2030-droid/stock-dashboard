@@ -20,8 +20,13 @@ def _safe(val, default=0):
 
 def technical_score(snap: dict) -> tuple[float, list[str]]:
     """Returns (score 0-100, list of reasoning tags) from a technical snapshot.
-    This is the SWING-oriented technical score: rewards established trend +
-    healthy (not necessarily extreme) momentum, since swing trades run for days-to-weeks."""
+    This is the SWING-oriented technical score - PULLBACK-TO-SUPPORT style:
+    rewards stocks in a confirmed uptrend that have cooled off toward their
+    EMA20 (a classic swing-trading entry), rather than chasing strength at
+    a fresh breakout high. Backtesting showed breakout-chasing entries got
+    stopped out too often on large-caps; pullback entries buy temporary
+    weakness in an already-proven trend instead of paying up for a stock
+    that just ran."""
     if not snap:
         return 0.0, ["no price data"]
 
@@ -34,46 +39,36 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
     rsi = _safe(snap.get("rsi14"), 50)
     macd_hist = _safe(snap.get("macd_hist"))
     macd_hist_prev = _safe(snap.get("macd_hist_prev"))
-    vol_spike = _safe(snap.get("vol_spike"), 1)
-    high20 = _safe(snap.get("high20"))
 
-    if close > ema20 > ema50:
-        score += 25
-        reasons.append("price above EMA20 & EMA50 (uptrend)")
-    elif close > ema20:
-        score += 12
-        reasons.append("price above EMA20")
-    if ema200 and close > ema200:
-        score += 10
-        reasons.append("above 200 EMA (long-term uptrend)")
-
-    if 50 < rsi < 70:
-        score += 20
-        reasons.append(f"RSI {rsi:.0f} - healthy bullish momentum")
-    elif rsi >= 70:
-        score += 8
-        reasons.append(f"RSI {rsi:.0f} - overbought, momentum strong but stretched")
-    elif 40 < rsi <= 50:
-        score += 8
-        reasons.append(f"RSI {rsi:.0f} - neutral")
-
-    if macd_hist > 0 and macd_hist > macd_hist_prev:
-        score += 10
-        reasons.append("MACD histogram rising above zero (bullish momentum building)")
-    elif macd_hist > 0:
-        score += 5
-        reasons.append("MACD histogram positive")
-
-    if vol_spike >= 1.5:
-        score += 20
-        reasons.append(f"volume {vol_spike:.1f}x 20-day average (strong interest)")
-    elif vol_spike >= 1.1:
-        score += 10
-        reasons.append(f"volume {vol_spike:.1f}x average (mild pickup)")
-
-    if high20 and close >= high20 * 0.98:
+    if close > ema50:
         score += 15
-        reasons.append("near/at 20-day high (breakout zone)")
+        reasons.append("price above EMA50 (established uptrend)")
+    if ema200 and ema50 > ema200:
+        score += 15
+        reasons.append("EMA50 above EMA200 (longer-term uptrend intact)")
+
+    if ema20 > 0:
+        dist_pct = abs(close - ema20) / ema20 * 100
+        if dist_pct <= 2.0 and close >= ema20 * 0.97:
+            score += 35
+            reasons.append(f"price pulled back to EMA20 support ({dist_pct:.1f}% away)")
+        elif dist_pct <= 4.0 and close >= ema20 * 0.95:
+            score += 18
+            reasons.append(f"price near EMA20 support ({dist_pct:.1f}% away)")
+
+    if 35 <= rsi <= 55:
+        score += 20
+        reasons.append(f"RSI {rsi:.0f} - momentum reset, room to run")
+    elif 55 < rsi <= 65:
+        score += 10
+        reasons.append(f"RSI {rsi:.0f} - mild pullback in momentum")
+
+    if macd_hist > 0:
+        score += 15
+        reasons.append("MACD histogram still positive through the pullback")
+    elif macd_hist > macd_hist_prev:
+        score += 7
+        reasons.append("MACD histogram turning back up")
 
     return min(score, 100.0), reasons
 
@@ -211,13 +206,13 @@ def trade_levels(snap: dict, atr_multiplier: float = 2.5, reward_risk: float = 1
     """
     close = snap.get("close")
     atr = snap.get("atr14")
-    high20 = snap.get("high20")
+   entry = close
 
     if not close or not atr or atr <= 0:
         return {"entry": None, "stop_loss": None, "target": None, "risk_per_share": None,
                 "reward_risk_ratio": None, "note": "insufficient data for trade levels"}
 
-    entry = high20 if (high20 and close >= high20 * 0.98) else close
+    
 
     risk_per_share = round(atr * atr_multiplier, 2)
     stop_loss = round(entry - risk_per_share, 2)
