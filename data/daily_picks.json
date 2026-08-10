@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-07T14:42:25.501149",
+  "generated_at": "2026-08-10T04:07:13.315465",
   "universe": "nifty500",
   "universe_size_scanned": 482,
   "disclaimer": "Scores are a rule-based ranking of technical/fundamental setup strength, not a prediction or guarantee of profit. Always apply your own risk management.",
@@ -13,142 +13,32 @@
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.7% away)",
-          "RSI 49 - momentum reset, room to run",
+          "price pulled back to EMA20 support (0.9% away)",
+          "RSI 52 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "ATR 3.9% of price - high volatility, good intraday range"
+          "ATR 3.7% of price - high volatility, good intraday range"
         ],
         "fundamental": [
-          "P/E 15.0 - reasonable valuation",
+          "P/E 15.2 - reasonable valuation",
           "revenue growth 23.3% YoY - strong",
           "earnings growth 25.2% YoY - strong"
         ]
       },
       "symbol": "CUB",
-      "close": 212.0,
-      "atr14": 8.26,
+      "close": 215.55,
+      "atr14": 7.93,
       "trade_levels": {
-        "entry": 212.0,
-        "stop_loss": 191.35,
-        "target": 242.98,
-        "risk_per_share": 20.65,
+        "entry": 215.55,
+        "stop_loss": 195.74,
+        "target": 245.27,
+        "risk_per_share": 19.81,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       },
       "recommended": true,
       "sector": "Unknown"
-    },
-    {
-      "swing_score": 91.8,
-      "intraday_score": 36.2,
-      "technical_score": 85.0,
-      "fundamental_score": 100.0,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.4% away)",
-          "RSI 50 - momentum reset, room to run",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "ATR 2.4% of price - moderate volatility",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "P/E 11.6 - reasonable valuation",
-          "D/E 28 - low debt",
-          "revenue growth 16.7% YoY - strong",
-          "earnings growth 97.2% YoY - strong"
-        ]
-      },
-      "symbol": "GAIL",
-      "close": 173.63,
-      "atr14": 4.22,
-      "trade_levels": {
-        "entry": 173.63,
-        "stop_loss": 163.08,
-        "target": 189.46,
-        "risk_per_share": 10.55,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      },
-      "recommended": true,
-      "sector": "Unknown"
-    },
-    {
-      "swing_score": 91.8,
-      "intraday_score": 36.2,
-      "technical_score": 85.0,
-      "fundamental_score": 100.0,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.2% away)",
-          "RSI 51 - momentum reset, room to run",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "ATR 2.0% of price - moderate volatility",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "P/E 11.5 - reasonable valuation",
-          "ROE 16.5% - strong returns on equity",
-          "revenue growth 48.1% YoY - strong",
-          "earnings growth 45.9% YoY - strong"
-        ]
-      },
-      "symbol": "IOB",
-      "close": 34.26,
-      "atr14": 0.68,
-      "trade_levels": {
-        "entry": 34.26,
-        "stop_loss": 32.55,
-        "target": 36.82,
-        "risk_per_share": 1.71,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      },
-      "recommended": false,
-      "sector": "Unknown"
-    },
-    {
-      "swing_score": 91.8,
-      "intraday_score": 36.2,
-      "technical_score": 85.0,
-      "fundamental_score": 100.0,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.2% away)",
-          "RSI 51 - momentum reset, room to run",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "ATR 1.9% of price - moderate volatility",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "P/E 19.1 - reasonable valuation",
-          "revenue growth 21.0% YoY - strong",
-          "earnings growth 22.5% YoY - strong"
-        ]
-      },
-      "symbol": "KOTAKBANK",
-      "close": 390.75,
-      "atr14": 7.24,
-      "trade_levels": {
-        "entry": 390.75,
-        "stop_loss": 372.64,
-        "target": 417.92,
-        "risk_per_share": 18.11,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      },
-      "recommended": false,
-      "sector": "Banking"
     },
     {
       "swing_score": 91.8,
@@ -158,12 +48,120 @@
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.7% away)",
+          "price pulled back to EMA20 support (1.1% away)",
+          "RSI 47 - momentum reset, room to run",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 2.3% of price - moderate volatility"
+        ],
+        "fundamental": [
+          "P/E 11.5 - reasonable valuation",
+          "D/E 28 - low debt",
+          "revenue growth 16.7% YoY - strong",
+          "earnings growth 97.2% YoY - strong"
+        ]
+      },
+      "symbol": "GAIL",
+      "close": 172.19,
+      "atr14": 4.03,
+      "trade_levels": {
+        "entry": 172.19,
+        "stop_loss": 162.12,
+        "target": 187.3,
+        "risk_per_share": 10.07,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      },
+      "recommended": true,
+      "sector": "Unknown"
+    },
+    {
+      "swing_score": 91.8,
+      "intraday_score": 36.2,
+      "technical_score": 85.0,
+      "fundamental_score": 100.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "price pulled back to EMA20 support (0.1% away)",
           "RSI 50 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "ATR 2.8% of price - moderate volatility"
+          "ATR 1.8% of price - moderate volatility",
+          "MACD histogram accelerating"
+        ],
+        "fundamental": [
+          "P/E 19.1 - reasonable valuation",
+          "revenue growth 21.0% YoY - strong",
+          "earnings growth 22.5% YoY - strong"
+        ]
+      },
+      "symbol": "KOTAKBANK",
+      "close": 389.35,
+      "atr14": 7.14,
+      "trade_levels": {
+        "entry": 389.35,
+        "stop_loss": 371.51,
+        "target": 416.11,
+        "risk_per_share": 17.84,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      },
+      "recommended": false,
+      "sector": "Banking"
+    },
+    {
+      "swing_score": 91.8,
+      "intraday_score": 44.8,
+      "technical_score": 85.0,
+      "fundamental_score": 100.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "price pulled back to EMA20 support (1.1% away)",
+          "RSI 53 - momentum reset, room to run",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 3.5% of price - high volatility, good intraday range",
+          "MACD histogram accelerating"
+        ],
+        "fundamental": [
+          "D/E 1 - low debt",
+          "revenue growth 48.3% YoY - strong"
+        ]
+      },
+      "symbol": "MEESHO",
+      "close": 189.29,
+      "atr14": 6.72,
+      "trade_levels": {
+        "entry": 189.29,
+        "stop_loss": 172.49,
+        "target": 214.49,
+        "risk_per_share": 16.8,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      },
+      "recommended": false,
+      "sector": "Unknown"
+    },
+    {
+      "swing_score": 91.8,
+      "intraday_score": 36.2,
+      "technical_score": 85.0,
+      "fundamental_score": 100.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "price pulled back to EMA20 support (1.2% away)",
+          "RSI 48 - momentum reset, room to run",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 2.8% of price - moderate volatility",
+          "testing 20-day low"
         ],
         "fundamental": [
           "P/E 24.8 - reasonable valuation",
@@ -173,13 +171,13 @@
         ]
       },
       "symbol": "SHYAMMETL",
-      "close": 1006.9,
-      "atr14": 28.65,
+      "close": 1000.9,
+      "atr14": 27.59,
       "trade_levels": {
-        "entry": 1006.9,
-        "stop_loss": 935.28,
-        "target": 1114.33,
-        "risk_per_share": 71.62,
+        "entry": 1000.9,
+        "stop_loss": 931.93,
+        "target": 1104.36,
+        "risk_per_share": 68.97,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       },
@@ -194,12 +192,12 @@
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (1.6% away)",
-          "RSI 55 - momentum reset, room to run",
+          "price pulled back to EMA20 support (0.2% away)",
+          "RSI 52 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "ATR 4.4% of price - high volatility, good intraday range",
+          "ATR 4.3% of price - high volatility, good intraday range",
           "MACD histogram accelerating"
         ],
         "fundamental": [
@@ -208,13 +206,13 @@
         ]
       },
       "symbol": "SWIGGY",
-      "close": 280.75,
-      "atr14": 12.23,
+      "close": 276.8,
+      "atr14": 11.82,
       "trade_levels": {
-        "entry": 280.75,
-        "stop_loss": 250.16,
-        "target": 326.64,
-        "risk_per_share": 30.59,
+        "entry": 276.8,
+        "stop_loss": 247.26,
+        "target": 321.11,
+        "risk_per_share": 29.54,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       },
@@ -223,22 +221,21 @@
     },
     {
       "swing_score": 88.2,
-      "intraday_score": 35.0,
+      "intraday_score": 26.5,
       "technical_score": 85.0,
       "fundamental_score": 92.0,
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.6% away)",
-          "RSI 48 - momentum reset, room to run",
+          "price pulled back to EMA20 support (0.3% away)",
+          "RSI 50 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "ATR 2.1% of price - moderate volatility",
-          "testing 20-day low"
+          "ATR 2.0% of price - moderate volatility"
         ],
         "fundamental": [
-          "P/E 22.2 - reasonable valuation",
+          "P/E 22.3 - reasonable valuation",
           "ROE 18.3% - strong returns on equity",
           "D/E 42 - low debt",
           "revenue growth 16.2% YoY - strong",
@@ -246,13 +243,13 @@
         ]
       },
       "symbol": "ZYDUSLIFE",
-      "close": 1114.2,
-      "atr14": 23.58,
+      "close": 1116.9,
+      "atr14": 22.53,
       "trade_levels": {
-        "entry": 1114.2,
-        "stop_loss": 1055.24,
-        "target": 1202.64,
-        "risk_per_share": 58.96,
+        "entry": 1116.9,
+        "stop_loss": 1060.56,
+        "target": 1201.41,
+        "risk_per_share": 56.34,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       },
@@ -267,12 +264,12 @@
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (0.6% away)",
-          "RSI 53 - momentum reset, room to run",
+          "price pulled back to EMA20 support (0.7% away)",
+          "RSI 54 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "ATR 3.2% of price - high volatility, good intraday range"
+          "ATR 3.1% of price - high volatility, good intraday range"
         ],
         "fundamental": [
           "P/E 30.6 - moderately expensive",
@@ -283,13 +280,49 @@
         ]
       },
       "symbol": "CAPLIPOINT",
-      "close": 2574.1,
-      "atr14": 82.88,
+      "close": 2579.0,
+      "atr14": 79.01,
       "trade_levels": {
-        "entry": 2574.1,
-        "stop_loss": 2366.91,
-        "target": 2884.89,
-        "risk_per_share": 207.19,
+        "entry": 2579.0,
+        "stop_loss": 2381.46,
+        "target": 2875.31,
+        "risk_per_share": 197.54,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      },
+      "recommended": false,
+      "sector": "Unknown"
+    },
+    {
+      "swing_score": 86.2,
+      "intraday_score": 36.2,
+      "technical_score": 75.0,
+      "fundamental_score": 100.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "price pulled back to EMA20 support (1.5% away)",
+          "RSI 55 - mild pullback in momentum",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 2.6% of price - moderate volatility",
+          "MACD histogram accelerating"
+        ],
+        "fundamental": [
+          "P/E 28.1 - reasonable valuation",
+          "revenue growth 29.8% YoY - strong",
+          "earnings growth 35.1% YoY - strong"
+        ]
+      },
+      "symbol": "AUBANK",
+      "close": 1061.2,
+      "atr14": 27.12,
+      "trade_levels": {
+        "entry": 1061.2,
+        "stop_loss": 993.4,
+        "target": 1162.9,
+        "risk_per_share": 67.8,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       },
@@ -304,12 +337,12 @@
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (1.5% away)",
+          "price pulled back to EMA20 support (1.4% away)",
           "RSI 59 - mild pullback in momentum",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "ATR 2.1% of price - moderate volatility"
+          "ATR 2.0% of price - moderate volatility"
         ],
         "fundamental": [
           "P/E 19.1 - reasonable valuation",
@@ -318,49 +351,13 @@
         ]
       },
       "symbol": "FEDERALBNK",
-      "close": 356.25,
-      "atr14": 7.54,
+      "close": 356.2,
+      "atr14": 7.19,
       "trade_levels": {
-        "entry": 356.25,
-        "stop_loss": 337.4,
-        "target": 384.52,
-        "risk_per_share": 18.85,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      },
-      "recommended": false,
-      "sector": "Unknown"
-    },
-    {
-      "swing_score": 86.2,
-      "intraday_score": 34.5,
-      "technical_score": 75.0,
-      "fundamental_score": 100.0,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "price pulled back to EMA20 support (2.0% away)",
-          "RSI 60 - mild pullback in momentum",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "ATR 2.8% of price - moderate volatility",
-          "RSI 60 - momentum building"
-        ],
-        "fundamental": [
-          "P/E 11.8 - reasonable valuation",
-          "revenue growth 26.0% YoY - strong",
-          "earnings growth 45.0% YoY - strong"
-        ]
-      },
-      "symbol": "KARURVYSYA",
-      "close": 335.55,
-      "atr14": 9.56,
-      "trade_levels": {
-        "entry": 335.55,
-        "stop_loss": 311.65,
-        "target": 371.4,
-        "risk_per_share": 23.9,
+        "entry": 356.2,
+        "stop_loss": 338.24,
+        "target": 383.14,
+        "risk_per_share": 17.96,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       },
@@ -370,219 +367,81 @@
   ],
   "intraday_picks": [
     {
-      "swing_score": 54.3,
-      "intraday_score": 97.6,
-      "technical_score": 30.0,
-      "fundamental_score": 84.0,
+      "swing_score": 44.8,
+      "intraday_score": 78.2,
+      "technical_score": 40.0,
+      "fundamental_score": 50.7,
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
+          "RSI 65 - mild pullback in momentum",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 5.2x average - very high intraday interest",
-          "ATR 3.1% of price - high volatility, good intraday range",
-          "RSI 77 - momentum extreme, high intraday energy",
+          "volume 3.3x average - very high intraday interest",
+          "ATR 2.7% of price - moderate volatility",
+          "RSI 65 - momentum building",
           "MACD histogram accelerating",
           "testing 20-day high"
         ],
         "fundamental": [
-          "P/E 45.9 - moderately expensive",
-          "D/E 44 - low debt",
-          "revenue growth 16.6% YoY - strong",
-          "earnings growth 104.2% YoY - strong"
+          "P/E 32.9 - moderately expensive",
+          "D/E 48 - low debt",
+          "revenue growth 9.9% YoY - moderate"
         ]
       },
-      "symbol": "MOTHERSON",
-      "close": 168.5,
-      "atr14": 5.24,
+      "symbol": "RAMCOCEM",
+      "close": 974.0,
+      "atr14": 26.55,
       "trade_levels": {
-        "entry": 168.5,
-        "stop_loss": 155.41,
-        "target": 188.14,
-        "risk_per_share": 13.09,
+        "entry": 974.0,
+        "stop_loss": 907.62,
+        "target": 1073.57,
+        "risk_per_share": 66.38,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       }
     },
     {
-      "swing_score": 45.1,
-      "intraday_score": 94.5,
-      "technical_score": 30.0,
-      "fundamental_score": 63.6,
+      "swing_score": 67.7,
+      "intraday_score": 73.7,
+      "technical_score": 50.0,
+      "fundamental_score": 89.3,
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "volume 4.6x average - very high intraday interest",
-          "ATR 3.7% of price - high volatility, good intraday range",
-          "RSI 75 - momentum extreme, high intraday energy",
-          "MACD histogram accelerating",
-          "testing 20-day high"
-        ],
-        "fundamental": [
-          "revenue growth 16.5% YoY - strong",
-          "earnings growth 300.0% YoY - strong"
-        ]
-      },
-      "symbol": "DEVYANI",
-      "close": 134.73,
-      "atr14": 5.0,
-      "trade_levels": {
-        "entry": 134.73,
-        "stop_loss": 122.24,
-        "target": 153.46,
-        "risk_per_share": 12.49,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      }
-    },
-    {
-      "swing_score": 44.7,
-      "intraday_score": 94.4,
-      "technical_score": 30.0,
-      "fundamental_score": 62.7,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "volume 7.6x average - very high intraday interest",
-          "ATR 3.5% of price - high volatility, good intraday range",
-          "RSI 76 - momentum extreme, high intraday energy",
-          "MACD histogram accelerating",
-          "testing 20-day high"
-        ],
-        "fundamental": [
-          "D/E 24 - low debt",
-          "revenue growth 33.8% YoY - strong",
-          "earnings growth 6.2% YoY - positive"
-        ]
-      },
-      "symbol": "TATATECH",
-      "close": 872.8,
-      "atr14": 30.21,
-      "trade_levels": {
-        "entry": 872.8,
-        "stop_loss": 797.26,
-        "target": 986.11,
-        "risk_per_share": 75.54,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      }
-    },
-    {
-      "swing_score": 56.1,
-      "intraday_score": 89.7,
-      "technical_score": 30.0,
-      "fundamental_score": 88.0,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "volume 14.9x average - very high intraday interest",
-          "ATR 3.5% of price - high volatility, good intraday range",
-          "RSI 70 - momentum extreme, high intraday energy",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "P/E 42.7 - moderately expensive",
-          "ROE 35.7% - strong returns on equity",
-          "D/E 17 - low debt",
-          "revenue growth 25.7% YoY - strong",
-          "earnings growth 17.2% YoY - strong"
-        ]
-      },
-      "symbol": "TRAVELFOOD",
-      "close": 1428.6,
-      "atr14": 49.32,
-      "trade_levels": {
-        "entry": 1428.6,
-        "stop_loss": 1305.31,
-        "target": 1613.53,
-        "risk_per_share": 123.29,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      }
-    },
-    {
-      "swing_score": 49.5,
-      "intraday_score": 87.5,
-      "technical_score": 30.0,
-      "fundamental_score": 73.3,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "volume 3.5x average - very high intraday interest",
-          "ATR 3.7% of price - high volatility, good intraday range",
-          "RSI 78 - momentum extreme, high intraday energy",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "D/E 16 - low debt",
-          "revenue growth 122.1% YoY - strong",
-          "earnings growth 962.8% YoY - strong"
-        ]
-      },
-      "symbol": "NEULANDLAB",
-      "close": 22855.0,
-      "atr14": 853.36,
-      "trade_levels": {
-        "entry": 22855.0,
-        "stop_loss": 20721.59,
-        "target": 26055.12,
-        "risk_per_share": 2133.41,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      }
-    },
-    {
-      "swing_score": 56.6,
-      "intraday_score": 83.6,
-      "technical_score": 32.0,
-      "fundamental_score": 86.7,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
+          "price near EMA20 support (4.0% away)",
           "RSI 61 - mild pullback in momentum",
           "MACD histogram turning back up"
         ],
         "intraday_technical": [
-          "volume 4.7x average - very high intraday interest",
-          "ATR 3.3% of price - high volatility, good intraday range",
+          "volume 2.4x average - strong intraday interest",
+          "ATR 3.2% of price - high volatility, good intraday range",
           "RSI 61 - momentum building",
           "MACD histogram accelerating"
         ],
         "fundamental": [
-          "P/E 10.5 - reasonable valuation",
-          "D/E 29 - low debt",
-          "revenue growth 14.2% YoY - moderate",
-          "earnings growth 118.9% YoY - strong"
+          "P/E 15.4 - reasonable valuation",
+          "D/E 15 - low debt",
+          "revenue growth 28.5% YoY - strong",
+          "earnings growth 10.8% YoY - positive"
         ]
       },
-      "symbol": "SCI",
-      "close": 304.75,
-      "atr14": 10.21,
+      "symbol": "BLS",
+      "close": 255.88,
+      "atr14": 8.09,
       "trade_levels": {
-        "entry": 304.75,
-        "stop_loss": 279.24,
-        "target": 343.02,
-        "risk_per_share": 25.51,
+        "entry": 255.88,
+        "stop_loss": 235.65,
+        "target": 286.23,
+        "risk_per_share": 20.23,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       }
     },
     {
       "swing_score": 50.6,
-      "intraday_score": 81.5,
+      "intraday_score": 67.9,
       "technical_score": 32.0,
       "fundamental_score": 73.3,
       "reasons": {
@@ -592,32 +451,33 @@
           "MACD histogram turning back up"
         ],
         "intraday_technical": [
-          "volume 10.4x average - very high intraday interest",
-          "ATR 3.8% of price - high volatility, good intraday range",
+          "volume 1.6x average - moderate pickup",
+          "ATR 3.4% of price - high volatility, good intraday range",
           "RSI 64 - momentum building",
-          "MACD histogram accelerating"
+          "MACD histogram accelerating",
+          "testing 20-day high"
         ],
         "fundamental": [
-          "D/E 4 - low debt",
-          "revenue growth 42.5% YoY - strong",
-          "earnings growth 67.8% YoY - strong"
+          "D/E 2 - low debt",
+          "revenue growth 68.6% YoY - strong",
+          "earnings growth 123.5% YoY - strong"
         ]
       },
-      "symbol": "ENRIN",
-      "close": 3648.8,
-      "atr14": 140.4,
+      "symbol": "POWERINDIA",
+      "close": 35105.0,
+      "atr14": 1197.02,
       "trade_levels": {
-        "entry": 3648.8,
-        "stop_loss": 3297.8,
-        "target": 4175.3,
-        "risk_per_share": 351.0,
+        "entry": 35105.0,
+        "stop_loss": 32112.46,
+        "target": 39593.81,
+        "risk_per_share": 2992.54,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       }
     },
     {
       "swing_score": 61.5,
-      "intraday_score": 81.3,
+      "intraday_score": 66.0,
       "technical_score": 30.0,
       "fundamental_score": 100.0,
       "reasons": {
@@ -626,97 +486,230 @@
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 2.5x average - strong intraday interest",
-          "ATR 2.3% of price - moderate volatility",
-          "RSI 75 - momentum extreme, high intraday energy",
+          "ATR 4.1% of price - high volatility, good intraday range",
+          "RSI 78 - momentum extreme, high intraday energy",
           "MACD histogram accelerating",
           "testing 20-day high"
         ],
         "fundamental": [
-          "P/E 20.0 - reasonable valuation",
-          "ROE 28.0% - strong returns on equity",
-          "D/E 4 - low debt",
-          "revenue growth 30.2% YoY - strong",
-          "earnings growth 25.7% YoY - strong"
+          "D/E 26 - low debt",
+          "revenue growth 88.8% YoY - strong"
         ]
       },
-      "symbol": "HEROMOTOCO",
-      "close": 5725.0,
-      "atr14": 132.03,
+      "symbol": "ATHERENERG",
+      "close": 1498.4,
+      "atr14": 60.7,
       "trade_levels": {
-        "entry": 5725.0,
-        "stop_loss": 5394.93,
-        "target": 6220.1,
-        "risk_per_share": 330.07,
+        "entry": 1498.4,
+        "stop_loss": 1346.65,
+        "target": 1726.03,
+        "risk_per_share": 151.75,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       }
     },
     {
-      "swing_score": 27.8,
-      "intraday_score": 80.2,
+      "swing_score": 61.5,
+      "intraday_score": 66.0,
       "technical_score": 30.0,
-      "fundamental_score": 25.0,
+      "fundamental_score": 100.0,
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 6.3x average - very high intraday interest",
-          "ATR 4.5% of price - high volatility, good intraday range",
-          "RSI 75 - momentum extreme, high intraday energy",
-          "MACD histogram accelerating"
+          "ATR 4.1% of price - high volatility, good intraday range",
+          "RSI 83 - momentum extreme, high intraday energy",
+          "MACD histogram accelerating",
+          "testing 20-day high"
         ],
         "fundamental": [
-          "revenue growth 14.7% YoY - moderate"
+          "P/E 16.4 - reasonable valuation",
+          "D/E 27 - low debt",
+          "revenue growth 34.6% YoY - strong",
+          "earnings growth 76.7% YoY - strong"
         ]
       },
-      "symbol": "SAPPHIRE",
-      "close": 224.22,
-      "atr14": 10.07,
+      "symbol": "REDINGTON",
+      "close": 355.65,
+      "atr14": 14.53,
       "trade_levels": {
-        "entry": 224.22,
-        "stop_loss": 199.05,
-        "target": 261.98,
-        "risk_per_share": 25.17,
+        "entry": 355.65,
+        "stop_loss": 319.32,
+        "target": 410.14,
+        "risk_per_share": 36.33,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       }
     },
     {
-      "swing_score": 44.6,
-      "intraday_score": 77.8,
-      "technical_score": 32.0,
-      "fundamental_score": 60.0,
+      "swing_score": 54.3,
+      "intraday_score": 63.6,
+      "technical_score": 30.0,
+      "fundamental_score": 84.0,
       "reasons": {
         "technical": [
           "price above EMA50 (established uptrend)",
-          "RSI 62 - mild pullback in momentum",
-          "MACD histogram turning back up"
+          "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 2.1x average - strong intraday interest",
-          "ATR 3.2% of price - high volatility, good intraday range",
-          "RSI 62 - momentum building",
+          "ATR 3.0% of price - high volatility, good intraday range",
+          "RSI 74 - momentum extreme, high intraday energy",
           "MACD histogram accelerating",
           "testing 20-day high"
         ],
         "fundamental": [
-          "P/E 36.3 - moderately expensive",
-          "D/E 0 - low debt",
-          "revenue growth 10.5% YoY - moderate",
-          "earnings growth 4.7% YoY - positive"
+          "P/E 36.9 - moderately expensive",
+          "D/E 8 - low debt",
+          "revenue growth 49.9% YoY - strong",
+          "earnings growth 30.9% YoY - strong"
         ]
       },
-      "symbol": "CLEAN",
-      "close": 795.15,
-      "atr14": 25.61,
+      "symbol": "COFORGE",
+      "close": 1801.7,
+      "atr14": 54.72,
       "trade_levels": {
-        "entry": 795.15,
-        "stop_loss": 731.11,
-        "target": 891.21,
-        "risk_per_share": 64.04,
+        "entry": 1801.7,
+        "stop_loss": 1664.91,
+        "target": 2006.88,
+        "risk_per_share": 136.79,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      }
+    },
+    {
+      "swing_score": 54.3,
+      "intraday_score": 63.6,
+      "technical_score": 30.0,
+      "fundamental_score": 84.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 3.2% of price - high volatility, good intraday range",
+          "RSI 77 - momentum extreme, high intraday energy",
+          "MACD histogram accelerating",
+          "testing 20-day high"
+        ],
+        "fundamental": [
+          "P/E 44.8 - moderately expensive",
+          "D/E 11 - low debt",
+          "revenue growth 17.7% YoY - strong",
+          "earnings growth 28.3% YoY - strong"
+        ]
+      },
+      "symbol": "EXIDEIND",
+      "close": 492.0,
+      "atr14": 15.57,
+      "trade_levels": {
+        "entry": 492.0,
+        "stop_loss": 453.08,
+        "target": 550.38,
+        "risk_per_share": 38.92,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      }
+    },
+    {
+      "swing_score": 50.2,
+      "intraday_score": 62.2,
+      "technical_score": 30.0,
+      "fundamental_score": 75.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 3.4% of price - high volatility, good intraday range",
+          "RSI 80 - momentum extreme, high intraday energy",
+          "MACD histogram accelerating",
+          "testing 20-day high"
+        ],
+        "fundamental": [
+          "D/E 70 - manageable debt",
+          "revenue growth 17.4% YoY - strong"
+        ]
+      },
+      "symbol": "PPLPHARMA",
+      "close": 214.6,
+      "atr14": 7.37,
+      "trade_levels": {
+        "entry": 214.6,
+        "stop_loss": 196.16,
+        "target": 242.26,
+        "risk_per_share": 18.44,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      }
+    },
+    {
+      "swing_score": 49.5,
+      "intraday_score": 62.0,
+      "technical_score": 30.0,
+      "fundamental_score": 73.3,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 3.9% of price - high volatility, good intraday range",
+          "RSI 72 - momentum extreme, high intraday energy",
+          "MACD histogram accelerating",
+          "testing 20-day high"
+        ],
+        "fundamental": [
+          "D/E 18 - low debt",
+          "revenue growth 29.1% YoY - strong",
+          "earnings growth 77.4% YoY - strong"
+        ]
+      },
+      "symbol": "APARINDS",
+      "close": 16811.0,
+      "atr14": 651.04,
+      "trade_levels": {
+        "entry": 16811.0,
+        "stop_loss": 15183.4,
+        "target": 19252.4,
+        "risk_per_share": 1627.6,
+        "reward_risk_ratio": 1.5,
+        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+      }
+    },
+    {
+      "swing_score": 49.5,
+      "intraday_score": 62.0,
+      "technical_score": 30.0,
+      "fundamental_score": 73.3,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "ATR 3.0% of price - high volatility, good intraday range",
+          "RSI 78 - momentum extreme, high intraday energy",
+          "MACD histogram accelerating",
+          "testing 20-day high"
+        ],
+        "fundamental": [
+          "D/E 8 - low debt",
+          "revenue growth 19.1% YoY - strong",
+          "earnings growth 27.8% YoY - strong"
+        ]
+      },
+      "symbol": "LALPATHLAB",
+      "close": 1964.2,
+      "atr14": 59.38,
+      "trade_levels": {
+        "entry": 1964.2,
+        "stop_loss": 1815.75,
+        "target": 2186.87,
+        "risk_per_share": 148.45,
         "reward_risk_ratio": 1.5,
         "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
       }
