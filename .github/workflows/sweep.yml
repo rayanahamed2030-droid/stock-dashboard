@@ -11,6 +11,10 @@ on:
         description: "Max days to hold before timing out"
         required: true
         default: "10"
+      seed:
+        description: "Random seed for train/test split (change this to check if results are stable)"
+        required: true
+        default: "42"
 
 jobs:
   sweep:
@@ -30,4 +34,5 @@ jobs:
           python engine/sweep_backtest.py \
             --universe nifty500 \
             --max-stocks "${{ github.event.inputs.max_stocks }}" \
-            --hold-days "${{ github.event.inputs.hold_days }}"
+            --hold-days "${{ github.event.inputs.hold_days }}" \
+            --seed "${{ github.event.inputs.seed }}"
