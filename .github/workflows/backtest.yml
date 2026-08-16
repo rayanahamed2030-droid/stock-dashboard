@@ -3,10 +3,22 @@ name: Backtest Scoring Rules
 on:
   workflow_dispatch:
     inputs:
-      symbols:
-        description: "Comma-separated NSE symbols (e.g. RELIANCE,TCS,INFY)"
+      mode:
+        description: "Backtest mode"
         required: true
+        default: "universe"
+        type: choice
+        options:
+          - universe
+          - symbols
+      symbols:
+        description: "Only used if mode=symbols. Comma-separated NSE symbols"
+        required: false
         default: "RELIANCE,TCS,INFY,HDFCBANK,ICICIBANK"
+      max_stocks:
+        description: "Only used if mode=universe. Cap on number of stocks (blank = all ~500, slower)"
+        required: false
+        default: "100"
       threshold:
         description: "Minimum swing_score to trigger a simulated trade"
         required: true
@@ -29,7 +41,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r engine/requirements.txt
 
-      - name: Run backtest
+      - name: Run backtest (universe mode)
+        if: ${{ github.event.inputs.mode == 'universe' }}
+        run: |
+          python engine/backtest.py \
+            --universe nifty500 \
+            ${{ github.event.inputs.max_stocks && format('--max-stocks {0}', github.event.inputs.max_stocks) || '' }} \
+            --threshold "${{ github.event.inputs.threshold }}" \
+            --hold-days "${{ github.event.inputs.hold_days }}"
+
+      - name: Run backtest (symbols mode)
+        if: ${{ github.event.inputs.mode == 'symbols' }}
         run: |
           python engine/backtest.py \
             --symbols "${{ github.event.inputs.symbols }}" \
