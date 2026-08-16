@@ -140,6 +140,9 @@ if __name__ == "__main__":
     parser.add_argument("--hold-days", type=int, default=10)
     parser.add_argument("--train-frac", type=float, default=0.7,
                          help="Fraction of stocks used for searching (rest held out for testing)")
+    parser.add_argument("--seed", type=int, default=42,
+                         help="Random seed for the train/test split - run with different seeds "
+                              "to check whether results are stable, not a one-off lucky split")
     args = parser.parse_args()
 
-    run(args.universe, args.max_stocks, args.hold_days, args.train_frac)
+    run(args.universe, args.max_stocks, args.hold_days, args.train_frac, args.seed)
