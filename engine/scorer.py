@@ -42,8 +42,6 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
     macd_hist = _safe(snap.get("macd_hist"))
     macd_hist_prev = _safe(snap.get("macd_hist_prev"))
 
-    # Established trend (20 pts) - the uptrend must already be in place;
-    # we're not predicting a new one, just buying a dip within it.
     if close > ema50:
         score += 10
         reasons.append("price above EMA50 (established uptrend)")
@@ -51,24 +49,15 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 10
         reasons.append("EMA50 above EMA200 (longer-term uptrend intact)")
 
-    # Minervini-style 200-day trend confirmation (15 pts) - the 200-day MA
-    # itself must be sloping UP, not just have price sitting above a flat
-    # or declining one. A flat/falling 200-day MA means the "uptrend" is
-    # weaker than it looks even if today's price is technically above it.
     if ema200 and ema200_20d_ago and ema200_20d_ago > 0:
         if ema200 > ema200_20d_ago:
             score += 15
             reasons.append("200-day average sloping upward (genuine long-term uptrend)")
 
-    # Minervini-style leadership check (10 pts) - price within 25% of its
-    # 52-week high indicates the stock is showing real strength/leadership,
-    # not just technically "in an uptrend" while lagging badly behind its highs.
     if high252 and high252 > 0 and close >= high252 * 0.75:
         score += 10
         reasons.append("within 25% of 52-week high (market leadership)")
 
-    # Pullback proximity to EMA20 (25 pts) - the core signal: price has
-    # cooled off toward its short-term support instead of chasing a high.
     if ema20 > 0:
         dist_pct = abs(close - ema20) / ema20 * 100
         if dist_pct <= 2.0 and close >= ema20 * 0.97:
@@ -78,8 +67,6 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
             score += 13
             reasons.append(f"price near EMA20 support ({dist_pct:.1f}% away)")
 
-    # Momentum reset (20 pts) - RSI cooled off from overbought, leaving
-    # room to run again, rather than already stretched.
     if 35 <= rsi <= 55:
         score += 20
         reasons.append(f"RSI {rsi:.0f} - momentum reset, room to run")
@@ -87,7 +74,6 @@ def technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 10
         reasons.append(f"RSI {rsi:.0f} - mild pullback in momentum")
 
-    # Trend still intact despite pullback (10 pts)
     if macd_hist > 0:
         score += 10
         reasons.append("MACD histogram still positive through the pullback")
@@ -119,8 +105,6 @@ def intraday_technical_score(snap: dict) -> tuple[float, list[str]]:
     high20 = _safe(snap.get("high20"))
     low20 = _safe(snap.get("low20"))
 
-    # Volume surge (40 pts) - the single strongest intraday signal: unusual
-    # participation today means the stock is "in play" right now.
     if vol_spike >= 3.0:
         score += 40
         reasons.append(f"volume {vol_spike:.1f}x average - very high intraday interest")
@@ -131,8 +115,6 @@ def intraday_technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 14
         reasons.append(f"volume {vol_spike:.1f}x average - moderate pickup")
 
-    # Volatility relative to price (25 pts) - intraday traders need enough
-    # daily range to actually hit a target within the session/next session.
     if close > 0 and atr > 0:
         atr_pct = (atr / close) * 100
         if atr_pct >= 3.0:
@@ -142,8 +124,6 @@ def intraday_technical_score(snap: dict) -> tuple[float, list[str]]:
             score += 15
             reasons.append(f"ATR {atr_pct:.1f}% of price - moderate volatility")
 
-    # Momentum acceleration (25 pts) - rewards RSI pushing into strength/extremes
-    # and MACD histogram actively expanding, not just "healthy" as in swing scoring.
     if rsi >= 70 or rsi <= 30:
         score += 15
         reasons.append(f"RSI {rsi:.0f} - momentum extreme, high intraday energy")
@@ -155,8 +135,6 @@ def intraday_technical_score(snap: dict) -> tuple[float, list[str]]:
         score += 10
         reasons.append("MACD histogram accelerating")
 
-    # Breakout/breakdown proximity (10 pts) - lighter weight than in swing scoring,
-    # since intraday can trade a level without needing the multi-week setup.
     if high20 and close >= high20 * 0.98:
         score += 10
         reasons.append("testing 20-day high")
@@ -230,12 +208,6 @@ def fundamental_score(fund: dict) -> tuple[float, list[str]]:
     if max_possible == 0:
         return 0.0, ["no usable fundamental fields"]
 
-    # Blend raw score (rewards having MORE strong data points, not just a
-    # high ratio on whatever little data exists) with coverage-normalized
-    # score. A stock with 5 strong fields should outscore a stock with only
-    # 2 strong fields, even if both are "perfect" within what's available -
-    # pure normalization was letting sparse-data stocks tie with well-covered
-    # ones, which isn't the intent.
     coverage_normalized = (score / max_possible) * 100
     blended = (score * 0.6) + (coverage_normalized * 0.4)
     return round(min(blended, 100.0), 1), reasons
