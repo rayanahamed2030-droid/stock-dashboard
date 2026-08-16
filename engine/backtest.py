@@ -33,7 +33,7 @@ log = logging.getLogger(__name__)
 
 def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: int,
                      round_trip_cost_pct: float = 0.25,
-                     atr_multiplier: float = 2.5, reward_risk: float = 1.5) -> list[dict]:
+                     atr_multiplier: float = 3.0, reward_risk: float = 2.0) -> list[dict]:
     """Returns a list of simulated trade outcomes for one symbol.
 
     round_trip_cost_pct: estimated total cost of entering AND exiting a delivery
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     parser.add_argument("--max-stocks", type=int, default=None,
                          help="Optional cap on how many stocks to backtest from --universe "
                               "(useful to keep runtime reasonable, e.g. 100)")
-    parser.add_argument("--threshold", type=float, default=65.0,
+    parser.add_argument("--threshold", type=float, default=75.0,
                          help="Minimum swing_score to trigger a simulated trade")
     parser.add_argument("--hold-days", type=int, default=10,
                          help="Max days to hold before timing out the trade")
