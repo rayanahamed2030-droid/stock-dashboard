@@ -224,7 +224,9 @@ def trade_levels(snap: dict, atr_multiplier: float = 2.5, reward_risk: float = 1
     close = snap.get("close")
     atr = snap.get("atr14")
 
-    if not close or not atr or atr <= 0:
+    close_is_nan = close is not None and close != close
+    atr_is_nan = atr is not None and atr != atr
+    if not close or not atr or atr <= 0 or close_is_nan or atr_is_nan:
         return {"entry": None, "stop_loss": None, "target": None, "risk_per_share": None,
                 "reward_risk_ratio": None, "note": "insufficient data for trade levels"}
 
