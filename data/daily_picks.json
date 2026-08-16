@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T19:15:49.220483+00:00",
+  "generated_at": "2026-08-16T21:02:56.631400+00:00",
   "universe": "nifty500",
   "universe_size_scanned": 481,
   "market_regime": {
@@ -7,7 +7,7 @@
     "note": "Nifty below its long-term trend - consider reducing position sizes or sitting out until conditions improve"
   },
   "disclaimer": "Scores are a rule-based ranking of technical/fundamental setup strength, not a prediction or guarantee of profit. Always apply your own risk management.",
-  "recommended_note": "'Recommended' picks passed an extra filter: score >= 70, complete technical + fundamental reasoning, and sector diversity across the recommended set. Still not a guarantee - do your own review.",
+  "recommended_note": "'Recommended' picks passed an extra filter: score >= 75 (validated via out-of-sample backtesting), complete technical + fundamental reasoning, and sector diversity across the recommended set. Still not a guarantee - do your own review.",
   "swing_picks": [
     {
       "swing_score": 79.5,
@@ -18,8 +18,8 @@
         "technical": [
           "price above EMA50 (established uptrend)",
           "within 25% of 52-week high (market leadership)",
-          "price pulled back to EMA20 support (0.5% away)",
-          "RSI 54 - momentum reset, room to run",
+          "price pulled back to EMA20 support (0.6% away)",
+          "RSI 55 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
@@ -35,14 +35,14 @@
       },
       "symbol": "ATUL",
       "close": 6729.0,
-      "atr14": 179.59,
+      "atr14": 179.35,
       "trade_levels": {
         "entry": 6729.0,
-        "stop_loss": 6280.03,
-        "target": 7402.46,
-        "risk_per_share": 448.97,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 6190.94,
+        "target": 7805.12,
+        "risk_per_share": 538.06,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": true,
       "sector": "Unknown"
@@ -75,11 +75,11 @@
       "atr14": 4.04,
       "trade_levels": {
         "entry": 174.9,
-        "stop_loss": 164.8,
-        "target": 190.05,
-        "risk_per_share": 10.1,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 162.78,
+        "target": 199.14,
+        "risk_per_share": 12.12,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": true,
       "sector": "Unknown"
@@ -113,11 +113,11 @@
       "atr14": 16.28,
       "trade_levels": {
         "entry": 561.9,
-        "stop_loss": 521.19,
-        "target": 622.97,
-        "risk_per_share": 40.71,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 513.05,
+        "target": 659.6,
+        "risk_per_share": 48.85,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -152,11 +152,11 @@
       "atr14": 13.44,
       "trade_levels": {
         "entry": 376.0,
-        "stop_loss": 342.41,
-        "target": 426.38,
-        "risk_per_share": 33.59,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 335.69,
+        "target": 456.62,
+        "risk_per_share": 40.31,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -189,11 +189,11 @@
       "atr14": 1.33,
       "trade_levels": {
         "entry": 42.28,
-        "stop_loss": 38.95,
-        "target": 47.27,
-        "risk_per_share": 3.33,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 38.28,
+        "target": 50.28,
+        "risk_per_share": 4.0,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -226,11 +226,11 @@
       "atr14": 26.27,
       "trade_levels": {
         "entry": 999.6,
-        "stop_loss": 933.93,
-        "target": 1098.1,
-        "risk_per_share": 65.67,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 920.8,
+        "target": 1157.2,
+        "risk_per_share": 78.8,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -266,11 +266,11 @@
       "atr14": 187.67,
       "trade_levels": {
         "entry": 9240.0,
-        "stop_loss": 8770.84,
-        "target": 9943.74,
-        "risk_per_share": 469.16,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 8677.0,
+        "target": 10366.0,
+        "risk_per_share": 563.0,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -284,8 +284,8 @@
         "technical": [
           "price above EMA50 (established uptrend)",
           "within 25% of 52-week high (market leadership)",
-          "price pulled back to EMA20 support (0.7% away)",
-          "RSI 54 - momentum reset, room to run",
+          "price pulled back to EMA20 support (0.9% away)",
+          "RSI 55 - momentum reset, room to run",
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
@@ -300,52 +300,14 @@
       },
       "symbol": "CREDITACC",
       "close": 1549.4,
-      "atr14": 43.15,
+      "atr14": 43.73,
       "trade_levels": {
         "entry": 1549.4,
-        "stop_loss": 1441.53,
-        "target": 1711.21,
-        "risk_per_share": 107.87,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      },
-      "recommended": false,
-      "sector": "Unknown"
-    },
-    {
-      "swing_score": 76.8,
-      "intraday_score": 42.5,
-      "technical_score": 70.0,
-      "fundamental_score": 85.0,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "within 25% of 52-week high (market leadership)",
-          "price pulled back to EMA20 support (1.6% away)",
-          "RSI 54 - momentum reset, room to run",
-          "MACD histogram turning back up"
-        ],
-        "intraday_technical": [
-          "ATR 3.2% of price - high volatility, good intraday range",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "P/E 28.2 - reasonable valuation",
-          "D/E 6 - low debt",
-          "revenue growth 23.7% YoY - strong",
-          "earnings growth 193.5% YoY - strong"
-        ]
-      },
-      "symbol": "SPLPETRO",
-      "close": 726.55,
-      "atr14": 23.58,
-      "trade_levels": {
-        "entry": 726.55,
-        "stop_loss": 667.59,
-        "target": 814.99,
-        "risk_per_share": 58.96,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 1418.22,
+        "target": 1811.76,
+        "risk_per_share": 131.18,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -379,11 +341,50 @@
       "atr14": 115.8,
       "trade_levels": {
         "entry": 4475.9,
-        "stop_loss": 4186.4,
-        "target": 4910.15,
-        "risk_per_share": 289.5,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 4128.5,
+        "target": 5170.7,
+        "risk_per_share": 347.4,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
+      },
+      "recommended": false,
+      "sector": "Unknown"
+    },
+    {
+      "swing_score": 75.2,
+      "intraday_score": 38.8,
+      "technical_score": 55.0,
+      "fundamental_score": 100.0,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "within 25% of 52-week high (market leadership)",
+          "price pulled back to EMA20 support (1.9% away)",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "RSI 67 - momentum building",
+          "MACD histogram accelerating",
+          "testing 20-day high"
+        ],
+        "fundamental": [
+          "P/E 17.4 - reasonable valuation",
+          "ROE 57.0% - strong returns on equity",
+          "D/E 3 - low debt",
+          "revenue growth 25.0% YoY - strong",
+          "earnings growth 42.1% YoY - strong"
+        ]
+      },
+      "symbol": "CASTROLIND",
+      "close": 186.82,
+      "atr14": 2.32,
+      "trade_levels": {
+        "entry": 186.82,
+        "stop_loss": 179.86,
+        "target": 200.74,
+        "risk_per_share": 6.96,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       },
       "recommended": false,
       "sector": "Unknown"
@@ -402,7 +403,7 @@
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 11.5x average - very high intraday interest",
+          "volume 11.3x average - very high intraday interest",
           "ATR 3.2% of price - high volatility, good intraday range",
           "RSI 74 - momentum extreme, high intraday energy",
           "MACD histogram accelerating",
@@ -416,14 +417,14 @@
       },
       "symbol": "HONASA",
       "close": 502.8,
-      "atr14": 15.86,
+      "atr14": 15.95,
       "trade_levels": {
         "entry": 502.8,
-        "stop_loss": 463.15,
-        "target": 562.27,
-        "risk_per_share": 39.65,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 454.94,
+        "target": 598.52,
+        "risk_per_share": 47.86,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -438,7 +439,7 @@
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 13.3x average - very high intraday interest",
+          "volume 13.2x average - very high intraday interest",
           "ATR 2.4% of price - moderate volatility",
           "RSI 74 - momentum extreme, high intraday energy",
           "MACD histogram accelerating",
@@ -452,14 +453,48 @@
       },
       "symbol": "LGEINDIA",
       "close": 1729.7,
-      "atr14": 42.19,
+      "atr14": 41.84,
       "trade_levels": {
         "entry": 1729.7,
-        "stop_loss": 1624.21,
-        "target": 1887.93,
-        "risk_per_share": 105.49,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 1604.18,
+        "target": 1980.74,
+        "risk_per_share": 125.52,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
+      }
+    },
+    {
+      "swing_score": 39.3,
+      "intraday_score": 84.1,
+      "technical_score": 30.0,
+      "fundamental_score": 50.7,
+      "reasons": {
+        "technical": [
+          "price above EMA50 (established uptrend)",
+          "within 25% of 52-week high (market leadership)",
+          "MACD histogram still positive through the pullback"
+        ],
+        "intraday_technical": [
+          "volume 3.4x average - very high intraday interest",
+          "ATR 3.2% of price - high volatility, good intraday range",
+          "RSI 70 - momentum extreme, high intraday energy",
+          "MACD histogram accelerating"
+        ],
+        "fundamental": [
+          "D/E 3 - low debt",
+          "revenue growth 20.3% YoY - strong"
+        ]
+      },
+      "symbol": "JUBLFOOD",
+      "close": 504.1,
+      "atr14": 16.21,
+      "trade_levels": {
+        "entry": 504.1,
+        "stop_loss": 455.46,
+        "target": 601.38,
+        "risk_per_share": 48.64,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -473,7 +508,7 @@
           "MACD histogram still positive through the pullback"
         ],
         "intraday_technical": [
-          "volume 3.2x average - very high intraday interest",
+          "volume 3.0x average - very high intraday interest",
           "ATR 3.1% of price - high volatility, good intraday range",
           "RSI 68 - momentum building",
           "MACD histogram accelerating",
@@ -486,14 +521,14 @@
       },
       "symbol": "BATAINDIA",
       "close": 755.7,
-      "atr14": 23.48,
+      "atr14": 23.78,
       "trade_levels": {
         "entry": 755.7,
-        "stop_loss": 696.99,
-        "target": 843.77,
-        "risk_per_share": 58.71,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 684.35,
+        "target": 898.4,
+        "risk_per_share": 71.35,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -527,11 +562,11 @@
       "atr14": 16.99,
       "trade_levels": {
         "entry": 609.5,
-        "stop_loss": 567.03,
-        "target": 673.2,
-        "risk_per_share": 42.47,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 558.54,
+        "target": 711.42,
+        "risk_per_share": 50.96,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -561,45 +596,11 @@
       "atr14": 28.24,
       "trade_levels": {
         "entry": 903.15,
-        "stop_loss": 832.55,
-        "target": 1009.05,
-        "risk_per_share": 70.6,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
-      }
-    },
-    {
-      "swing_score": 39.3,
-      "intraday_score": 78.2,
-      "technical_score": 30.0,
-      "fundamental_score": 50.7,
-      "reasons": {
-        "technical": [
-          "price above EMA50 (established uptrend)",
-          "within 25% of 52-week high (market leadership)",
-          "MACD histogram still positive through the pullback"
-        ],
-        "intraday_technical": [
-          "volume 3.4x average - very high intraday interest",
-          "ATR 3.2% of price - high volatility, good intraday range",
-          "RSI 70 - momentum building",
-          "MACD histogram accelerating"
-        ],
-        "fundamental": [
-          "D/E 3 - low debt",
-          "revenue growth 20.3% YoY - strong"
-        ]
-      },
-      "symbol": "JUBLFOOD",
-      "close": 504.1,
-      "atr14": 16.3,
-      "trade_levels": {
-        "entry": 504.1,
-        "stop_loss": 463.34,
-        "target": 565.24,
-        "risk_per_share": 40.76,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 818.44,
+        "target": 1072.57,
+        "risk_per_share": 84.71,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -632,11 +633,11 @@
       "atr14": 26.0,
       "trade_levels": {
         "entry": 939.2,
-        "stop_loss": 874.2,
-        "target": 1036.7,
-        "risk_per_share": 65.0,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 861.2,
+        "target": 1095.2,
+        "risk_per_share": 78.0,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -652,8 +653,8 @@
         ],
         "intraday_technical": [
           "volume 6.4x average - very high intraday interest",
-          "ATR 2.7% of price - moderate volatility",
-          "RSI 69 - momentum building",
+          "ATR 2.6% of price - moderate volatility",
+          "RSI 70 - momentum building",
           "MACD histogram accelerating",
           "testing 20-day high"
         ],
@@ -664,14 +665,14 @@
       },
       "symbol": "BDL",
       "close": 1398.0,
-      "atr14": 37.39,
+      "atr14": 36.94,
       "trade_levels": {
         "entry": 1398.0,
-        "stop_loss": 1304.54,
-        "target": 1538.19,
-        "risk_per_share": 93.46,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 1287.18,
+        "target": 1619.64,
+        "risk_per_share": 110.82,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -683,13 +684,13 @@
         "technical": [
           "price above EMA50 (established uptrend)",
           "within 25% of 52-week high (market leadership)",
-          "price pulled back to EMA20 support (0.9% away)",
-          "RSI 52 - momentum reset, room to run",
+          "price pulled back to EMA20 support (1.0% away)",
+          "RSI 53 - momentum reset, room to run",
           "MACD histogram turning back up"
         ],
         "intraday_technical": [
-          "volume 3.3x average - very high intraday interest",
-          "ATR 3.7% of price - high volatility, good intraday range",
+          "volume 3.1x average - very high intraday interest",
+          "ATR 3.6% of price - high volatility, good intraday range",
           "MACD histogram accelerating"
         ],
         "fundamental": [
@@ -701,14 +702,14 @@
       },
       "symbol": "CHOLAHLDNG",
       "close": 1597.2,
-      "atr14": 59.53,
+      "atr14": 58.21,
       "trade_levels": {
         "entry": 1597.2,
-        "stop_loss": 1448.38,
-        "target": 1820.43,
-        "risk_per_share": 148.82,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 1422.56,
+        "target": 1946.48,
+        "risk_per_share": 174.64,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     },
     {
@@ -741,11 +742,11 @@
       "atr14": 8.35,
       "trade_levels": {
         "entry": 278.12,
-        "stop_loss": 257.24,
-        "target": 309.44,
-        "risk_per_share": 20.88,
-        "reward_risk_ratio": 1.5,
-        "note": "Stop = 2.5x ATR below entry, target = 1.5:1 reward/risk"
+        "stop_loss": 253.07,
+        "target": 328.22,
+        "risk_per_share": 25.05,
+        "reward_risk_ratio": 2.0,
+        "note": "Stop = 3.0x ATR below entry, target = 2.0:1 reward/risk"
       }
     }
   ]
