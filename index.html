@@ -52,6 +52,13 @@
     border-radius:4px; font-size:12.5px; color:var(--warn);
     background:rgba(240,178,61,0.06);
   }
+  .regime-banner{
+    max-width:1100px; margin:10px auto 0; padding:10px 14px;
+    border-radius:4px; font-size:12.5px; border-left:3px solid;
+  }
+  .regime-banner.healthy{ border-color:var(--up); color:var(--up); background:rgba(31,207,125,0.06); }
+  .regime-banner.caution{ border-color:var(--warn); color:var(--warn); background:rgba(240,178,61,0.06); }
+  .regime-banner.unhealthy{ border-color:var(--down); color:var(--down); background:rgba(240,70,107,0.06); }
   main{max-width:1100px; margin:0 auto; padding:24px;}
   .columns{
     display:grid; grid-template-columns:1fr 1fr; gap:22px;
@@ -142,12 +149,14 @@
 <header>
   <div class="header-row">
     <h1>NSE <span>SCANNER</span></h1>
+    <nav style="font-family:'IBM Plex Mono', monospace; font-size:12px;"><a href="trades.html" style="color:var(--accent); text-decoration:none;">Trade Log →</a></nav>
     <div class="meta" id="meta">loading…</div>
   </div>
 </header>
 
 <main>
   <div class="disclaimer" id="disclaimer"></div>
+  <div class="regime-banner" id="regime-banner" style="display:none;"></div>
 
   <div class="columns" style="margin-top:22px;">
     <div>
@@ -215,8 +224,15 @@ fetch('data/daily_picks.json')
   .then(r => r.json())
   .then(data => {
     document.getElementById('meta').textContent =
-      `Updated ${new Date(data.generated_at).toLocaleString('en-IN')} · ${data.universe_size_scanned} stocks scanned (${data.universe})`;
+      `Updated ${new Date(data.generated_at).toLocaleString('en-IN', {timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short'})} IST · ${data.universe_size_scanned} stocks scanned (${data.universe})`;
     document.getElementById('disclaimer').textContent = data.disclaimer;
+
+    if(data.market_regime){
+      const rb = document.getElementById('regime-banner');
+      rb.style.display = 'block';
+      rb.className = 'regime-banner ' + data.market_regime.status;
+      rb.textContent = `Market regime: ${data.market_regime.status.toUpperCase()} — ${data.market_regime.note}`;
+    }
 
     const swingEl = document.getElementById('swing-list');
     const intradayEl = document.getElementById('intraday-list');
