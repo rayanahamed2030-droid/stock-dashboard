@@ -88,6 +88,17 @@ def fetch_price_history(symbols: list[str], period: str = "9mo", batch_size: int
     return results
 
 
+def fetch_index_history(symbol: str = "^NSEI", period: str = "1y") -> "pd.DataFrame":
+    """Fetches daily history for a market index (default: Nifty 50) to check
+    overall market health/regime before trusting individual stock signals."""
+    try:
+        df = yf.download(symbol, period=period, interval="1d", progress=False, auto_adjust=True)
+        return df.dropna(how="all")
+    except Exception as e:
+        log.warning(f"Failed to fetch index history for {symbol}: {e}")
+        return pd.DataFrame()
+
+
 def fetch_fundamentals(symbol: str) -> dict:
     """
     Fetches key fundamental ratios for a single symbol via yfinance.

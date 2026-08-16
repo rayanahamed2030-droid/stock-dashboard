@@ -31,8 +31,18 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 log = logging.getLogger(__name__)
 
 
-def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: int) -> list[dict]:
-    """Returns a list of simulated trade outcomes for one symbol."""
+def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: int,
+                     round_trip_cost_pct: float = 0.25) -> list[dict]:
+    """Returns a list of simulated trade outcomes for one symbol.
+
+    round_trip_cost_pct: estimated total cost of entering AND exiting a delivery
+    trade in India - brokerage (often near-zero with discount brokers) + STT
+    (0.1% on the sell side for delivery) + slippage (the gap between intended
+    and actual fill price). 0.25% is a reasonable middle estimate; real costs
+    vary by broker and trade size. This is subtracted from every simulated
+    trade's return so the backtest reports what you'd ACTUALLY keep, not the
+    theoretical price-only return.
+    """
     enriched = compute_indicators(df)
     if enriched.empty or len(enriched) < 220:
         return []
@@ -77,10 +87,12 @@ def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: in
                     exit_price = target
                     break
 
-            pct_return = round((exit_price - entry) / entry * 100, 2)
+            gross_pct_return = (exit_price - entry) / entry * 100
+            net_pct_return = round(gross_pct_return - round_trip_cost_pct, 2)
             trades.append({
                 "symbol": symbol, "entry_idx": i, "swing_score": swing_score,
-                "outcome": outcome, "pct_return": pct_return,
+                "outcome": outcome, "pct_return": net_pct_return,
+                "gross_pct_return": round(gross_pct_return, 2),
             })
             i += hold_days  # avoid overlapping trades on the same stock
         else:
@@ -105,20 +117,24 @@ def run(symbols: list[str], threshold: float, hold_days: int):
 
     wins = [t for t in all_trades if t["pct_return"] > 0]
     win_rate = round(len(wins) / len(all_trades) * 100, 1)
-    avg_return = round(statistics.mean(t["pct_return"] for t in all_trades), 2)
+    avg_return_net = round(statistics.mean(t["pct_return"] for t in all_trades), 2)
+    avg_return_gross = round(statistics.mean(t["gross_pct_return"] for t in all_trades), 2)
     avg_win = round(statistics.mean([t["pct_return"] for t in wins]), 2) if wins else 0
     losses = [t for t in all_trades if t["pct_return"] <= 0]
     avg_loss = round(statistics.mean([t["pct_return"] for t in losses]), 2) if losses else 0
 
     print("\n===== BACKTEST RESULTS =====")
-    print(f"Total simulated trades : {len(all_trades)}")
-    print(f"Win rate               : {win_rate}%")
-    print(f"Average return/trade   : {avg_return}%")
-    print(f"Average winner         : {avg_win}%")
-    print(f"Average loser          : {avg_loss}%")
+    print(f"Total simulated trades      : {len(all_trades)}")
+    print(f"Win rate                    : {win_rate}%")
+    print(f"Avg return/trade (GROSS)    : {avg_return_gross}%  <- price movement only")
+    print(f"Avg return/trade (NET)      : {avg_return_net}%  <- after ~0.25% round-trip costs")
+    print(f"Average winner (net)        : {avg_win}%")
+    print(f"Average loser (net)         : {avg_loss}%")
     print("=============================")
     print("Reminder: this is a heuristic backtest with static fundamentals held")
     print("constant across the window. Treat it as directional, not definitive.")
+    print("NET figures assume a 0.25% round-trip cost estimate (brokerage+STT+slippage) -")
+    print("your actual broker's costs may differ; check your real cost structure.")
 
 
 if __name__ == "__main__":

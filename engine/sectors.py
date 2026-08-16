@@ -59,6 +59,11 @@ SECTOR_MAP = {
 
     # Diversified / Others seen in earlier scans
     "USHAMART": "Metals", "ARE&M": "Auto Ancillary", "NAM-INDIA": "Financial Services",
+    "CUB": "Banking", "IOB": "Banking", "FEDERALBNK": "Banking", "KARURVYSYA": "Banking",
+    "SWIGGY": "Consumer Internet", "ZYDUSLIFE": "Pharma", "CAPLIPOINT": "Pharma",
+    "MOTHERSON": "Auto Ancillary", "DEVYANI": "Consumer Internet", "TATATECH": "IT",
+    "TRAVELFOOD": "Consumer Internet", "NEULANDLAB": "Pharma", "SCI": "Shipping",
+    "ENRIN": "Energy", "SAPPHIRE": "Consumer Internet", "CLEAN": "Chemicals",
 }
 
 

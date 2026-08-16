@@ -38,8 +38,42 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     # Simple support/resistance proxy: 20-day high/low
     out["High20"] = out["High"].rolling(20).max()
     out["Low20"] = out["Low"].rolling(20).min()
+    out["High252"] = out["High"].rolling(min(252, len(out))).max()  # ~52-week high
+    out["EMA200_20d_ago"] = out["EMA200"].shift(20) if "EMA200" in out.columns else None
 
     return out
+
+
+def market_regime(index_df: "pd.DataFrame") -> dict:
+    """
+    Evaluates whether the broader market (e.g. Nifty 50) is in a healthy
+    uptrend, based on Minervini-style breadth/trend logic: price above its
+    key moving averages, with the 200-day MA itself sloping upward. This is
+    a regime check, not a stock pick - it tells you whether conditions favor
+    aggressive trading or caution, regardless of how good an individual
+    stock's setup looks.
+    """
+    enriched = compute_indicators(index_df)
+    if enriched.empty or len(enriched) < 210:
+        return {"status": "unknown", "note": "insufficient index history to assess market regime"}
+
+    row = enriched.iloc[-1]
+    close = row.get("Close")
+    ema50 = row.get("EMA50")
+    ema200 = row.get("EMA200")
+
+    if ema200 is None or (hasattr(ema200, "__len__") is False and ema200 != ema200):
+        return {"status": "unknown", "note": "insufficient history for 200-day average"}
+
+    ema200_20d_ago = enriched.iloc[-21]["EMA200"] if len(enriched) > 21 else None
+    ema200_rising = (ema200_20d_ago is not None) and (ema200 > ema200_20d_ago)
+
+    if close > ema50 > ema200 and ema200_rising:
+        return {"status": "healthy", "note": "Nifty above EMA50/EMA200, with EMA200 rising - favorable conditions for swing trades"}
+    elif close > ema200 and ema200_rising:
+        return {"status": "caution", "note": "Nifty above its 200-day average but not fully aligned - trade smaller size, be selective"}
+    else:
+        return {"status": "unhealthy", "note": "Nifty below its long-term trend - consider reducing position sizes or sitting out until conditions improve"}
 
 
 def latest_snapshot(df: pd.DataFrame) -> dict | None:
@@ -64,4 +98,6 @@ def latest_snapshot(df: pd.DataFrame) -> dict | None:
         "vol_spike": row.get("VolSpike"),
         "high20": row.get("High20"),
         "low20": row.get("Low20"),
+        "high252": row.get("High252"),
+        "ema200_20d_ago": row.get("EMA200_20d_ago"),
     }

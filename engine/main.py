@@ -21,8 +21,8 @@ import datetime
 import logging
 from pathlib import Path
 
-from fetch_data import get_symbol_universe, fetch_price_history, fetch_fundamentals
-from indicators import compute_indicators, latest_snapshot
+from fetch_data import get_symbol_universe, fetch_price_history, fetch_fundamentals, fetch_index_history
+from indicators import compute_indicators, latest_snapshot, market_regime
 from scorer import technical_score, intraday_technical_score, fundamental_score, combined_scores, trade_levels
 from sectors import get_sector
 
@@ -68,6 +68,11 @@ def select_recommended(swing_picks: list, max_picks: int = 2, min_score: float =
 
 
 def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
+    log.info("Checking overall market regime (Nifty 50)...")
+    index_df = fetch_index_history("^NSEI")
+    regime = market_regime(index_df)
+    log.info(f"Market regime: {regime['status']} - {regime['note']}")
+
     symbols = get_symbol_universe(universe)
     price_data = fetch_price_history(symbols)
 
@@ -78,6 +83,7 @@ def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
         if not snap or not snap.get("close"):
             continue
 
+        # basic liquidity/penny-stock filter - adjust to taste
         if snap["close"] < min_price:
             continue
         if snap.get("vol_avg20") and snap["vol_avg20"] < min_avg_volume:
@@ -105,9 +111,10 @@ def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
         pick["sector"] = get_sector(pick["symbol"])
 
     output = {
-        "generated_at": datetime.datetime.now().isoformat(),
+        "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "universe": universe,
         "universe_size_scanned": len(results),
+        "market_regime": regime,
         "disclaimer": (
             "Scores are a rule-based ranking of technical/fundamental setup strength, "
             "not a prediction or guarantee of profit. Always apply your own risk management."
