@@ -29,14 +29,11 @@ from backtest import backtest_symbol
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
-# The parameter grid to search - kept modest so the sweep finishes in
-# reasonable time on GitHub Actions. Each combination is tested fully
-# across the TRAIN stock set.
 THRESHOLDS = [60, 65, 70, 75]
 ATR_MULTIPLIERS = [1.75, 2.0, 2.5, 3.0]
 REWARD_RISK_RATIOS = [1.0, 1.5, 2.0]
 
-MIN_TRADES_FOR_CONSIDERATION = 30  # ignore combos with too few trades to trust
+MIN_TRADES_FOR_CONSIDERATION = 30
 
 
 def evaluate(symbols: list[str], price_data: dict, fund_cache: dict,
@@ -50,6 +47,8 @@ def evaluate(symbols: list[str], price_data: dict, fund_cache: dict,
             threshold, hold_days, atr_multiplier=atr_mult, reward_risk=reward_risk,
         )
         all_trades.extend(trades)
+
+    all_trades = [t for t in all_trades if t["pct_return"] == t["pct_return"]]  # NaN != NaN
 
     if len(all_trades) < MIN_TRADES_FOR_CONSIDERATION:
         return {"n_trades": len(all_trades), "win_rate": None, "avg_return": None}
@@ -65,7 +64,7 @@ def run(universe: str, max_stocks: int, hold_days: int, train_frac: float = 0.7,
     if max_stocks:
         symbols = symbols[:max_stocks]
 
-    random.Random(seed).shuffle(symbols)  # fixed seed = reproducible split
+    random.Random(seed).shuffle(symbols)
     split_idx = int(len(symbols) * train_frac)
     train_symbols = symbols[:split_idx]
     test_symbols = symbols[split_idx:]
@@ -98,7 +97,6 @@ def run(universe: str, max_stocks: int, hold_days: int, train_frac: float = 0.7,
                      "Try a larger --max-stocks or lower MIN_TRADES_FOR_CONSIDERATION.")
         return
 
-    # Best on TRAIN, ranked by average return (the metric that actually matters for profit)
     results.sort(key=lambda r: r["avg_return"], reverse=True)
     best = results[0]
 
@@ -113,7 +111,6 @@ def run(universe: str, max_stocks: int, hold_days: int, train_frac: float = 0.7,
         print(f"  threshold={r['threshold']:.0f} atr={r['atr_multiplier']} rr={r['reward_risk']} "
               f"-> {r['n_trades']} trades, {r['win_rate']}% win, {r['avg_return']}% avg return")
 
-    # THE HONEST CHECK: same parameters, on stocks never used to pick them
     log.info("\nChecking best-on-train parameters against TEST set (unseen data)...")
     test_stats = evaluate(test_symbols, price_data, fund_cache,
                             best["threshold"], hold_days, best["atr_multiplier"], best["reward_risk"])
