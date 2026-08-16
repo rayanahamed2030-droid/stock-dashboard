@@ -35,7 +35,6 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     out["VolAvg20"] = out["Volume"].rolling(20).mean()
     out["VolSpike"] = out["Volume"] / out["VolAvg20"]
 
-    # Simple support/resistance proxy: 20-day high/low
     out["High20"] = out["High"].rolling(20).max()
     out["Low20"] = out["Low"].rolling(20).min()
     out["High252"] = out["High"].rolling(min(252, len(out))).max()  # ~52-week high
