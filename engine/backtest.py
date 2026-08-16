@@ -9,7 +9,6 @@ number - the thing most AI stock-picker tools conveniently don't show you.
 
 Usage:
     python backtest.py --symbols RELIANCE,TCS,INFY --threshold 65 --hold-days 10
-    python backtest.py --universe nifty500 --max-stocks 100 --threshold 65
 
 Limitations (important):
 - Fundamentals are fetched once (current values) and held constant across the
@@ -26,14 +25,15 @@ import logging
 
 from fetch_data import fetch_price_history, fetch_fundamentals, get_symbol_universe
 from indicators import compute_indicators, latest_snapshot
-from scorer import technical_score, fundamental_score, combined_scores, trade_levels
+from scorer import technical_score, fundamental_score, combined_scores, trade_levels as scorer_trade_levels
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger(__name__)
 
 
 def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: int,
-                     round_trip_cost_pct: float = 0.25) -> list[dict]:
+                     round_trip_cost_pct: float = 0.25,
+                     atr_multiplier: float = 2.5, reward_risk: float = 1.5) -> list[dict]:
     """Returns a list of simulated trade outcomes for one symbol.
 
     round_trip_cost_pct: estimated total cost of entering AND exiting a delivery
@@ -64,7 +64,7 @@ def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: in
         swing_score = combo["swing_score"]
 
         if swing_score >= threshold:
-            levels = trade_levels(snap)
+            levels = scorer_trade_levels(snap, atr_multiplier=atr_multiplier, reward_risk=reward_risk)
             if levels["entry"] is None:
                 i += 1
                 continue
