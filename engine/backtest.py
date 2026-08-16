@@ -9,6 +9,7 @@ number - the thing most AI stock-picker tools conveniently don't show you.
 
 Usage:
     python backtest.py --symbols RELIANCE,TCS,INFY --threshold 65 --hold-days 10
+    python backtest.py --universe nifty500 --max-stocks 100 --threshold 65
 
 Limitations (important):
 - Fundamentals are fetched once (current values) and held constant across the
@@ -23,7 +24,7 @@ import argparse
 import statistics
 import logging
 
-from fetch_data import fetch_price_history, fetch_fundamentals
+from fetch_data import fetch_price_history, fetch_fundamentals, get_symbol_universe
 from indicators import compute_indicators, latest_snapshot
 from scorer import technical_score, fundamental_score, combined_scores, trade_levels
 
@@ -104,11 +105,13 @@ def backtest_symbol(symbol: str, df, fund: dict, threshold: float, hold_days: in
 def run(symbols: list[str], threshold: float, hold_days: int):
     price_data = fetch_price_history(symbols, period="2y")
     all_trades = []
+    per_symbol_summary = []
 
     for symbol in symbols:
         fund = fetch_fundamentals(symbol)
         trades = backtest_symbol(symbol, price_data.get(symbol), fund, threshold, hold_days)
         all_trades.extend(trades)
+        per_symbol_summary.append((symbol, len(trades)))
         log.info(f"{symbol}: {len(trades)} simulated trades")
 
     if not all_trades:
@@ -122,29 +125,51 @@ def run(symbols: list[str], threshold: float, hold_days: int):
     avg_win = round(statistics.mean([t["pct_return"] for t in wins]), 2) if wins else 0
     losses = [t for t in all_trades if t["pct_return"] <= 0]
     avg_loss = round(statistics.mean([t["pct_return"] for t in losses]), 2) if losses else 0
+    stocks_with_trades = len([s for s, c in per_symbol_summary if c > 0])
 
     print("\n===== BACKTEST RESULTS =====")
-    print(f"Total simulated trades      : {len(all_trades)}")
-    print(f"Win rate                    : {win_rate}%")
-    print(f"Avg return/trade (GROSS)    : {avg_return_gross}%  <- price movement only")
-    print(f"Avg return/trade (NET)      : {avg_return_net}%  <- after ~0.25% round-trip costs")
-    print(f"Average winner (net)        : {avg_win}%")
-    print(f"Average loser (net)         : {avg_loss}%")
+    print(f"Stocks scanned               : {len(symbols)}")
+    print(f"Stocks with >=1 trade         : {stocks_with_trades}")
+    print(f"Total simulated trades       : {len(all_trades)}")
+    print(f"Win rate                     : {win_rate}%")
+    print(f"Avg return/trade (GROSS)     : {avg_return_gross}%  <- price movement only")
+    print(f"Avg return/trade (NET)       : {avg_return_net}%  <- after ~0.25% round-trip costs")
+    print(f"Average winner (net)         : {avg_win}%")
+    print(f"Average loser (net)          : {avg_loss}%")
     print("=============================")
     print("Reminder: this is a heuristic backtest with static fundamentals held")
     print("constant across the window. Treat it as directional, not definitive.")
     print("NET figures assume a 0.25% round-trip cost estimate (brokerage+STT+slippage) -")
     print("your actual broker's costs may differ; check your real cost structure.")
+    if len(symbols) < 30:
+        print("\nNOTE: small sample size - results may not generalize. Run with")
+        print("--universe nifty500 (or a larger --max-stocks) for a more reliable read.")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--symbols", type=str, required=True,
+    parser.add_argument("--symbols", type=str, default=None,
                          help="Comma-separated NSE symbols, e.g. RELIANCE,TCS,INFY")
+    parser.add_argument("--universe", type=str, choices=["nifty500", "full"], default=None,
+                         help="Instead of --symbols, backtest across a whole universe "
+                              "(same source as the daily scan)")
+    parser.add_argument("--max-stocks", type=int, default=None,
+                         help="Optional cap on how many stocks to backtest from --universe "
+                              "(useful to keep runtime reasonable, e.g. 100)")
     parser.add_argument("--threshold", type=float, default=65.0,
                          help="Minimum swing_score to trigger a simulated trade")
     parser.add_argument("--hold-days", type=int, default=10,
                          help="Max days to hold before timing out the trade")
     args = parser.parse_args()
 
-    run([s.strip().upper() for s in args.symbols.split(",")], args.threshold, args.hold_days)
+    if args.universe:
+        symbol_list = get_symbol_universe(args.universe)
+        if args.max_stocks:
+            symbol_list = symbol_list[: args.max_stocks]
+        log.info(f"Backtesting {len(symbol_list)} stocks from {args.universe} universe")
+    elif args.symbols:
+        symbol_list = [s.strip().upper() for s in args.symbols.split(",")]
+    else:
+        parser.error("Provide either --symbols or --universe")
+
+    run(symbol_list, args.threshold, args.hold_days)
