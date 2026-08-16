@@ -69,8 +69,15 @@ def select_recommended(swing_picks: list, max_picks: int = 2, min_score: float =
 
 def run(universe: str, top_n: int, min_price: float, min_avg_volume: float):
     log.info("Checking overall market regime (Nifty 50)...")
-    index_df = fetch_index_history("^NSEI")
-    regime = market_regime(index_df)
+    try:
+        index_df = fetch_index_history("^NSEI")
+        regime = market_regime(index_df)
+    except Exception as e:
+        # The market regime check is a nice-to-have, not core to the scan -
+        # if it fails for any reason, log it and keep going rather than
+        # taking down the entire daily scan.
+        log.warning(f"Market regime check failed, continuing without it: {e}")
+        regime = {"status": "unknown", "note": "market regime check failed - see logs"}
     log.info(f"Market regime: {regime['status']} - {regime['note']}")
 
     symbols = get_symbol_universe(universe)
