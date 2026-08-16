@@ -93,6 +93,11 @@ def fetch_index_history(symbol: str = "^NSEI", period: str = "1y") -> "pd.DataFr
     overall market health/regime before trusting individual stock signals."""
     try:
         df = yf.download(symbol, period=period, interval="1d", progress=False, auto_adjust=True)
+        # Recent yfinance versions return MultiIndex columns (e.g. ('Close','^NSEI'))
+        # even for a single ticker - flatten to plain column names so downstream
+        # indicator code (which expects 'Close', 'High', etc.) works correctly.
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)
         return df.dropna(how="all")
     except Exception as e:
         log.warning(f"Failed to fetch index history for {symbol}: {e}")
