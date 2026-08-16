@@ -1,0 +1,33 @@
+name: Parameter Sweep (Train/Test)
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_stocks:
+        description: "Number of stocks to use (split into train/test)"
+        required: true
+        default: "100"
+      hold_days:
+        description: "Max days to hold before timing out"
+        required: true
+        default: "10"
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r engine/requirements.txt
+
+      - name: Run parameter sweep
+        run: |
+          python engine/sweep_backtest.py \
+            --universe nifty500 \
+            --max-stocks "${{ github.event.inputs.max_stocks }}" \
+            --hold-days "${{ github.event.inputs.hold_days }}"
